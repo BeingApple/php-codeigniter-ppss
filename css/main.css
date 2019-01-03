@@ -82,7 +82,7 @@ nav .wrap{ border-bottom: 1px solid #222; }
 
 .menu-item:hover ul{
 	display: block !important;
-	z-index: 99999
+	z-index: 99999;
 }
 
 .sub-menu-item{
