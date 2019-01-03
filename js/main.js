@@ -9,4 +9,13 @@ $(document).ready(function(){
 			 });
 		 }
 	});
+
+	$(window).scroll(function(){
+			var top = $("#banner-left").offset().top;
+			var scrollTop = $(window).scrollTop();
+
+			if(scrollTop > 240){
+				$("#banner-left").css({"-webkit-transform":"translate(0px,"+(scrollTop-240) +"px)"});
+			}
+	});
 });
