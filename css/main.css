@@ -5,6 +5,7 @@ body{height:100%; margin : 0;}
 a{text-decoration : none;}
 ol, ul{margin: 0; padding: 0;}
 ol, ul, li {list-style: none;}
+input{line-height: 32px;}
 
 /* skip */
 .skip {position:absolute; left:0; top:0; width:100%; z-index:999999;}
@@ -34,7 +35,7 @@ nav .wrap{ border-bottom: 1px solid #222; }
 	clear: both;
     color: #222;
     font-weight: 400;
-	font-size: 14px;
+	font-size: 13px;
     line-height: 1;
     text-transform: uppercase;
     width: 100%;
@@ -45,20 +46,81 @@ nav .wrap{ border-bottom: 1px solid #222; }
     text-align: left;
 }
 
+.menu-item a:focus,
+.menu-item a:hover, 
+.menu .current-menu > a{
+	color: #e8554e;
+}
+
 .menu-item:first-child{ clear: both; margin-left: 0; }
-.menu-item:first-child a{ padding-left: 0; }
-.menu-item a {
-	border: none;
+.menu-item:first-child > a{ padding-left: 0; }
+.menu-item > a {
     color: #222;
     display: block;
     padding: 25px 20px;
     position: relative;
 }
+
+/* drop down */
+.menu-item ul{
+	position: absolute;
+	background: #fff;
+	display: none;
+	height: auto;
+	margin: 0px;
+	width: 190px;
+}
+.menu-item:hover ul{
+	display: block;
+}
+
+.sub-menu-item{
+	border: 1px solid #222;
+    border-top: none;
+}
+.sub-menu-item > a {
+	border: none;
+    color: #222;
+    display: block;
+    padding: 20px 20px;
+    position: relative;
+}
+/* drop down end */
+
+.menu:after{content:" "; display:block; clear: both;}
+
+/* nav end */
+
+/* search box */
 .menu .right{
 	float: right;
-	padding: 10px 0 0;
-    max-width: 300px;
+    max-width: 350px;
+	padding: 10px 0 10px;
 }
-.menu:after{content:" "; display:block; clear: both;}
-/* nav end */
+.menu .right div{
+	display: inline-block;
+}
+.menu .right .input-box{
+	min-width: 220px;
+	border: 1px solid #BCCDF0;
+	margin-right: 10px;
+}
+.menu .right .btn-box > button{
+	border-radius: 3px;
+	border: solid 1px #666666;
+	padding: 6px 27px;
+    width: auto;
+    vertical-align: middle;
+    background-color: #CECECE;
+}
+.menu .right input{
+	width: 100%;
+	height: 40px;
+    border: none;
+	padding: 0px;
+    margin: 0px;
+    text-indent: 10px;
+    outline: none;
+}
+/* search box end */
 
