@@ -45,7 +45,13 @@
 						</ul>
 					</li>
 					<li class="menu-item"><a href="#"><span>시사</span></a></li>
-					<li class="menu-item"><a href="#"><span>문화</span></a></li>
+					<li class="menu-item"><a href="#"><span>문화</span></a>
+						<ul>
+							<li class="sub-menu-item"><a href="#"><span>드롭다운1</span></a></li>
+							<li class="sub-menu-item"><a href="#"><span>드롭다운2</span></a></li>
+							<li class="sub-menu-item"><a href="#"><span>드롭다운3</span></a></li>
+						</ul>
+					</li>
 					<li class="menu-item"><a href="#"><span>테크</span></a></li>
 					<li class="menu-item"><a href="#"><span>생활</span></a></li>
 					<li class="menu-item"><a href="#"><span>특집</span></a></li>
@@ -79,4 +85,18 @@
 		<!-- footer end -->
 	</div>
  </body>
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <script>
+	$(document).ready(function(){
+		 $(".menu-item").focusin(function(){
+			 var submenu = $(this).children("ul");
+			 if(submenu.length > 0){
+				 submenu.show();
+				 submenu.children("li:last-child").focusout(function(){
+					submenu.hide();
+				 });
+			 }
+		});
+	});
+ </script>
 </html>
