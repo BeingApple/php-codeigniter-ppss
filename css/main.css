@@ -7,6 +7,7 @@ ol, ul{margin: 0; padding: 0;}
 ol, ul, li {list-style: none;}
 input{line-height: 32px;}
 h1, h2, h3, h4, h5, h6{margin: 0 0 16px;}
+img{max-width: 100%;}
 
 /* skip */
 .skip {position:absolute; left:0; top:0; width:100%; z-index:999999;}
@@ -158,13 +159,6 @@ nav .wrap{ border-bottom: 1px solid #222; }
 }
 /* main end */
 
-/* aside */
-.recommended{
-	float: right;
-	width: 300px;
-}
-/* aside end */
-
 /* article */
 .article{
 	float: left;
@@ -240,3 +234,11 @@ nav .wrap{ border-bottom: 1px solid #222; }
 	color: #fff;
 }
 /* article end */
+
+/* aside */
+.aside-container{
+	float: right;
+	width: 300px;
+}
+.aside-container > section{ margin-bottom: 40px; }
+/* aside end */
