@@ -18,4 +18,16 @@ $(document).ready(function(){
 				$("#banner-left").css({"-webkit-transform":"translate(0px,"+(scrollTop-240) +"px)"});
 			}
 	});
+
+	$(".menu-btn > a").on("click", function(){
+		var mobileMenu = $(".mobile-menu ul");
+
+		if(mobileMenu.is(":visible")){
+			mobileMenu.hide();
+			$(this).css("border-bottom", "none");
+		}else{
+			mobileMenu.show();
+			$(this).css("border-bottom", "1px solid #222");
+		}
+	});
 });
