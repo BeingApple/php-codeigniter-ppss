@@ -1,13 +1,16 @@
 @charset "UTF-8";
 
 html{height:100%; font-family: 'Nanum Gothic', sans-serif;}
-body{height:100%; margin : 0;}
+body{height:100%; margin : 0; line-height: 1.625; font-weight: 300;}
 a{text-decoration : none; color:#222;}
 ol, ul{margin: 0; padding: 0;}
 ol, ul, li {list-style: none;}
 input{line-height: 32px;}
-h1, h2, h3, h4, h5, h6{margin: 0 0 16px;}
-img{max-width: 100%;}
+h1, h2, h3, h4, h5, h6{margin: 0 0 16px; font-weight: 500; line-height: 1.2; }
+embed, iframe, img, object, video { max-width: 100%; }
+img{ height: auto; }
+
+.fb-comments, .fb-comments iframe[style], .fb-comments span[style] { width: 100% !important; }
 
 /* skip */
 .skip {position:absolute; left:0; top:0; width:100%; z-index:999999;}
@@ -260,4 +263,4 @@ main{
 	nav > .mobile-search-box{ display: block; }
 	/* mobile menu end */
 }
-/* meida quer end */
+/* meida query end */

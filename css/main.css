@@ -31,14 +31,14 @@
     font-weight: 300;
 }
 
-.article .article-header{display: block}
+.article .article-header{ display: block; }
 .article .article-title{ 
 	display: block; 
 	font-size: 24px;
 	line-height: 1.2;
 }
 
-.articel-header a{
+.article-header a{
 	color: #222;
 	-webkit-transition: color 0.1s ease-in-out;
 	-moz-transition: color 0.1s ease-in-out;
@@ -46,8 +46,8 @@
 	transition: color 0.1s ease-in-out;
 }
 
-.articel-header a:focus,
-.articel-header a:hover{
+.article-header a:focus,
+.article-header a:hover{
 	color: #e8554e;
 }
 
