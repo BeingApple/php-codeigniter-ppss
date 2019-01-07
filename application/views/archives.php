@@ -3,7 +3,7 @@
 <!-- article -->
 <article class="article">
     <header class="article-header">
-        <h1 class="article-title">진정한 체리 코-크를 찾아서</h1>
+        <h1 class="article-title"><?php echo $data[0]->TEST ?></h1>
         <p class="article-meta"> 
             <time class="time" itemprop="datePublished" datetime="2019-01-07T14:23:10+00:00">2019년 1월 7일</time>
             by <span class="article-author"><a href="#" class="article-author-link" rel="author">마시즘</a></span> 
