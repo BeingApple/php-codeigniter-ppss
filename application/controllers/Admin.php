@@ -12,7 +12,7 @@ class Admin extends CI_Controller {
 
 	public function index(){
         if($this->_loginCheck()){
-            echo "로그인 하셨네요";
+            redirect(base_url('/admin/adminList'));
         }else{
             $this->login();
         }
@@ -20,7 +20,7 @@ class Admin extends CI_Controller {
     
     public function login(){
         if($this->_loginCheck()){
-            echo "로그인 하셨네요";
+            redirect(base_url('/admin/adminList'));
         }else{
             $adminId = $this->input->post('adminId', TRUE);
             $adminPassword = $this->input->post('adminPassword', TRUE);
@@ -43,8 +43,9 @@ class Admin extends CI_Controller {
                 $result = $this->admin_model->login($adminId, $adminPassword);
 
                 if($result != NULL){
-                    echo "로그인 되셨네요";
                     $this->session->set_userdata('adminData', $result);
+
+                    redirect(base_url('/admin/adminList'));
                 }else{
                     echo "로그인 실패";
                 }
@@ -56,6 +57,17 @@ class Admin extends CI_Controller {
         $this->admin_model->logout();
 
         redirect(base_url('/admin/login'));
+    }
+
+    public function adminList(){
+        $data = array();
+        $data['adminList'] = $this->admin_model->adminList();
+
+        $this->load->admin('admin/adminList', $data);
+    }
+
+    public function adminWrite(){
+        $this->load->admin('admin/adminWrite');
     }
 
     private function _loginCheck(){

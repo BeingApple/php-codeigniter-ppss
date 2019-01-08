@@ -5,7 +5,9 @@ class Admin_model extends CI_Model{
     public $ADMIN_SEQ;
     public $ADMIN_ID;
     public $ADMIN_PASSWORD;
+    public $ADMIN_NAME;
     public $ADMIN_GRADE;
+    public $DEL_YN;
     public $REG_DATE;
     public $LAST_LOGIN_DATE;
 
@@ -30,6 +32,18 @@ class Admin_model extends CI_Model{
 
     public function logout(){
         $this->session->unset_userdata('adminData');
+    }
+
+    public function adminListCount(){
+        $query = $this->db->get_where('TBL_ADMIN', array('DEL_YN' => 'N'));
+
+        return $this->db->count_all_results();
+    }
+
+    public function adminList(){
+        $query = $this->db->get_where('TBL_ADMIN', array('DEL_YN' => 'N'));
+
+        return $query->result();
     }
 }
 ?>
