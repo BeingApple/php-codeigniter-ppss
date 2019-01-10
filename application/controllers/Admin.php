@@ -54,7 +54,7 @@ class Admin extends CI_Controller {
 
                     redirect(base_url('/admin/adminList'));
                 }else{
-                    echo "로그인 실패";
+                    $this->util->alert("아이디 / 비밀번호를 확인하여 주시기 바랍니다.","/admin/login");
                 }
             }
         }
