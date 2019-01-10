@@ -35,7 +35,7 @@
                     foreach($adminList as $index => $data){
             ?>
                         <tr>
-                            <td>1</td>
+                            <td><?php echo $offset + ($index + 1); ?></td>
                             <td>
                                 <?php if($data->ADMIN_FILE_NAME != NULL){ ?>
                                     <img src="/uploads/ppss/<?php echo $data->ADMIN_FILE_NAME; ?>" />
@@ -64,6 +64,7 @@
             ?>
         </tbody>
     </table>
+    <?php echo $pagination; ?>
 </div>
 <div class="btn-group flright" role="group">
     <a class="btn btn-primary btn-sm" href="/admin/adminWrite" role="button">등록</a>

@@ -3,3 +3,4 @@
 	$config['allowed_types'] = '*';
 	$config['encrypt_name'] = TRUE;
 	$config['remove_spaces'] = TRUE;
+?>

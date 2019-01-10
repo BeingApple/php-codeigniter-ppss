@@ -9,8 +9,11 @@ class Admin extends CI_Controller {
         $this->load->library('session');
         $this->load->library('util');
         $this->load->library('image_lib');
+        $this->load->library('pagination');
 
         $this->load->model('admin_model');
+
+        $this->config->load('pagination', TRUE);
 	}
 
 	public function index(){
@@ -62,9 +65,28 @@ class Admin extends CI_Controller {
         redirect(base_url('/admin/login'));
     }
 
-    public function adminList(){
+    public function adminList($page = 1){
         $data = array();
-        $data['adminList'] = $this->admin_model->adminList();
+        $where = array();
+
+        $where['DEL_YN'] = 'N'; 
+        
+        //페이징
+        $config = $this->config->config['pagination'];
+        $config['base_url'] = '/admin/adminList';
+        $config['total_rows'] = $this->admin_model->adminListCount($where);
+
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+
+        //리스트
+        $perPage = $config['per_page'];
+        $offset = $perPage * ($page - 1);
+
+        $data['offset'] = $offset;
+        $data['page'] = $page;
+
+        $data['adminList'] = $this->admin_model->adminList($where, $perPage, $offset);
 
         $this->load->admin('admin/adminList', $data);
     }

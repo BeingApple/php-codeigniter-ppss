@@ -37,14 +37,14 @@ class Admin_model extends CI_Model{
         $this->session->unset_userdata('adminData');
     }
 
-    public function adminListCount(){
-        $query = $this->db->get_where('TBL_ADMIN', array('DEL_YN' => 'N'));
+    public function adminListCount($where = array()){
+        $query = $this->db->get_where('TBL_ADMIN', $where);
 
         return $query->num_rows();
     }
 
-    public function adminList(){
-        $query = $this->db->get_where('TBL_ADMIN', array('DEL_YN' => 'N'));
+    public function adminList($where = array(), $limit, $offset){
+        $query = $this->db->get_where('TBL_ADMIN', $where, $limit, $offset);
 
         return $query->result();
     }
