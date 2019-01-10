@@ -50,6 +50,7 @@ class Admin extends CI_Controller {
 
                 if($result != NULL){
                     $this->session->set_userdata('adminData', $result);
+                    $this->admin_model->lastLoginUpdate($result->ADMIN_SEQ);
 
                     redirect(base_url('/admin/adminList'));
                 }else{
@@ -128,6 +129,7 @@ class Admin extends CI_Controller {
                 $data["ADMIN_PASSWORD"] = hash('sha256', $this->input->post("adminPassword", TRUE));
                 $data["USE_YN"] = $this->input->post("useYn", TRUE);
                 $data["ADMIN_GRADE"] = $this->input->post("adminGrade", TRUE); 
+                $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
 
                 if(! $files = $this->util->multiple_upload('admin')) {
                     //error
@@ -175,6 +177,7 @@ class Admin extends CI_Controller {
                 }
                 $data["USE_YN"] = $this->input->post("useYn", TRUE);
                 $data["ADMIN_GRADE"] = $this->input->post("adminGrade", TRUE); 
+                $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
 
                 $where = array();
                 $where['ADMIN_SEQ'] = $seq;

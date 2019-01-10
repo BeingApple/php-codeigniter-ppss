@@ -9,6 +9,7 @@ class Admin_model extends CI_Model{
     public $ADMIN_GRADE;
     public $ADMIN_FILE_NAME;
     public $ADMIN_FILE_ORG;
+    public $ADMIN_DESC;
     public $USE_YN;
     public $DEL_YN;
     public $REG_DATE;
@@ -31,6 +32,14 @@ class Admin_model extends CI_Model{
         }
 
         return NULL;
+    }
+
+    public function lastLoginUpdate($idx = 0){
+        if($idx > 0){
+            $data['LAST_LOGIN_DATE'] =  date("Y-m-d H:i:s",time());
+            $where['ADMIN_SEQ'] = $idx;
+            return $this->db->update("TBL_ADMIN", $data, $where);
+        }
     }
 
     public function logout(){

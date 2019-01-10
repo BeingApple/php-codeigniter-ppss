@@ -112,6 +112,16 @@
         </div>
     </div>
 
+    <div class="form-group row">
+        <label for="adminDesc" class="col-sm-2 col-form-label" >설명글</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="adminDesc" name="adminDesc" rows="3"><?php echo $userData->ADMIN_DESC; ?></textarea>
+            <small id="adminGradeHelpBlock" class="form-text text-muted">
+                필자 목록에 노출 될 설명입니다.
+            </small>
+        </div>
+    </div>
+
     <div class="btn-group flright" role="group">
         <button type="button" id="submitBtn" class="btn btn-primary btn-sm"><?php echo ($userData->ADMIN_SEQ > 0)?"수정":"등록"; ?></button>
         <button type="button" id="cancelBtn" class="btn btn-primary btn-sm">목록</button>
