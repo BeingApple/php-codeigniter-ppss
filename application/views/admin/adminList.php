@@ -3,7 +3,37 @@
 </div>
 
 <div>
-    검색영역
+    <form id="serachForm" method="GET"> 
+        <div class="form-group row">
+            <div class="form-group col-md-6">
+                <label for="adminName">이름</label>
+                <input type="text" class="form-control" value="<?php echo $search['ADMIN_NAME'] ?>" id="adminName" name="adminName" placeholder="이름">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="adminId">아이디</label>
+                <input type="text" class="form-control" value="<?php echo $search['ADMIN_ID'] ?>" id="adminId" name="adminId" placeholder="아이디">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="form-group col-md-6">
+                <label for="adminGrade">권한</label>
+                <select class="form-control" name="adminGrade" id="adminGrade">
+                    <option value="">전체</option>
+                    <option value="S" <?php echo ($search['ADMIN_GRADE'] == "S")?"selected":""; ?>>슈퍼 관리자</option>
+                    <option value="W" <?php echo ($search['ADMIN_GRADE'] == "W")?"selected":""; ?>>필자</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="useYn">사용여부</label>
+                <select class="form-control" name="useYn" id="useYn">
+                    <option value="">전체</option>
+                    <option value="Y" <?php echo ($search['USE_YN'] == "Y")?"selected":""; ?>>사용</option>
+                    <option value="N" <?php echo ($search['USE_YN'] == "N")?"selected":""; ?>>사용 안 함</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">검색</button>
+    </form>
 </div>
 
 <h2></h2>

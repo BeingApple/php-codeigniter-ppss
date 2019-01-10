@@ -69,6 +69,14 @@ class Admin extends CI_Controller {
         $data = array();
         $where = array();
 
+        //검색
+        $where['ADMIN_NAME'] = $this->input->get('adminName', true);
+        $where['ADMIN_ID'] = $this->input->get('adminId', true);
+        $where['ADMIN_GRADE'] = $this->input->get('adminGrade', true);
+        $where['USE_YN'] = $this->input->get('useYn', true);
+
+        $data["search"] = $where; 
+
         $where['DEL_YN'] = 'N'; 
         
         //페이징

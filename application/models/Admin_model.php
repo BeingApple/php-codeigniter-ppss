@@ -38,13 +38,49 @@ class Admin_model extends CI_Model{
     }
 
     public function adminListCount($where = array()){
-        $query = $this->db->get_where('TBL_ADMIN', $where);
+        if($where['ADMIN_NAME'] != NULL && $where['ADMIN_NAME'] != ""){
+            $this->db->like('ADMIN_NAME', $where['ADMIN_NAME'], 'both');
+        }
+
+        if($where['ADMIN_ID'] != NULL && $where['ADMIN_ID'] != ""){
+            $this->db->like('ADMIN_ID', $where['ADMIN_ID'], 'both');
+        }
+
+        if($where['ADMIN_GRADE'] != NULL && $where['ADMIN_GRADE'] != ""){
+            $this->db->where('ADMIN_GRADE', $where['ADMIN_GRADE']);
+        }
+
+        if($where['USE_YN'] != NULL && $where['USE_YN'] != ""){
+            $this->db->where('USE_YN', $where['USE_YN']);
+        }
+
+        $this->db->where('DEL_YN', $where['DEL_YN']);
+
+        $query = $this->db->get('TBL_ADMIN');
 
         return $query->num_rows();
     }
 
     public function adminList($where = array(), $limit, $offset){
-        $query = $this->db->get_where('TBL_ADMIN', $where, $limit, $offset);
+        if($where['ADMIN_NAME'] != NULL){
+            $this->db->like('ADMIN_NAME', $where['ADMIN_NAME'], 'both');
+        }
+
+        if($where['ADMIN_ID'] != NULL){
+            $this->db->like('ADMIN_ID', $where['ADMIN_ID'], 'both');
+        }
+
+        if($where['ADMIN_GRADE'] != NULL){
+            $this->db->where('ADMIN_GRADE', $where['ADMIN_GRADE']);
+        }
+
+        if($where['USE_YN'] != NULL){
+            $this->db->where('USE_YN', $where['USE_YN']);
+        }
+
+        $this->db->where('DEL_YN', $where['DEL_YN']);
+
+        $query = $this->db->get('TBL_ADMIN', $limit, $offset);
 
         return $query->result();
     }
