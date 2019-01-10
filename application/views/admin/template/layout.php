@@ -21,21 +21,15 @@
     </head>
 
     <body>
-        <!-- nav -->
-        <?php $this->view($nav, $vars); ?>
-        <!-- nav end -->
+        <header>
+            <!-- nav -->
+            <?php $this->view($nav, $vars); ?>
+            <!-- nav end -->
+        </header>
 
-        <div class="container-fluid">
-            <div class="row">
-                <!-- aside -->
-                <?php $this->view($aside, $vars); ?>
-                <!-- aside end -->
-
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                    <?php $this->view($template_name, $vars); ?>
-                </main>
-            </div>
-        </div>
+        <main role="main" class="container">
+            <?php $this->view($template_name, $vars); ?>
+        </main>
 
         <!-- Bootstrap core JavaScript
         ================================================== -->

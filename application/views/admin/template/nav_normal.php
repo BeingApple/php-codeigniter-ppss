@@ -9,28 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="/admin/adminList">
-                    <span data-feather="users"></span>
-                    관리자 / 필자
-                    <span class="sr-only">(current)</span>
+                <a class="nav-link active" href="#">
+                    <span data-feather="user"></span>
+                    내 프로필 관리
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="user-plus"></span>
-                    필자 신청 목록
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="menu"></span>
-                    카테고리 관리
-                </a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="file-text"></span>
-                    기사 관리
+                    기사 등록
                 </a>
             </li>
         </ul>

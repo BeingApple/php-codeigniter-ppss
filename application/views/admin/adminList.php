@@ -2,7 +2,7 @@
     <h1 class="h2">관리자 / 필자 목록</h1>
 </div>
 
-<div>
+<div class="mb-4">
     <form id="serachForm" method="GET"> 
         <div class="form-group row">
             <div class="form-group col-md-6">
