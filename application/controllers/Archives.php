@@ -11,9 +11,15 @@ class Archives extends CI_Controller {
 		$this->view();
     }
     
-    public function view($id = NULL){
+    public function view($id = 0){
         $data["title"] = "아카이브 타이틀";
 
         $this->load->template('archives', $data);
+    }
+
+    public function author($id = ""){
+        $data["title"] = "아카이브 타이틀";
+        
+        $this->load->template('author', $data);
     }
 }

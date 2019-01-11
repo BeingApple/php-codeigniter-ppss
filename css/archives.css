@@ -71,3 +71,20 @@
 .article-author-box .author-box-content p{ margin: 0; }
 /* author box end*/
 
+/* author */
+.author-description{ 
+	background-color: #f5f5f5;
+	margin-bottom: 50px;
+    padding: 40px;
+}
+.author-title{
+	font-size: 20px;
+	margin-bottom: 0;
+}
+.article-image{
+	width: 630px;
+	height: 350px;
+}
+.author-article{ border-bottom: 2px solid #eee; }
+/* author end */
+

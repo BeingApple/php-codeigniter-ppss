@@ -18,6 +18,18 @@ img{ height: auto; }
 .skip a:focus, .skip a:hover, .skip a:active {display:block; height:20px; font-size:12px;}
 /* skip end */
 
+/* screen-reader */
+.screen-reader-text, .screen-reader-text span {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    overflow: hidden;
+    position: absolute !important;
+    width: 1px;
+    word-wrap: normal !important;
+}
+/* screen-reader end */
+
 /* wrap */
 .wrap{margin: 0 auto; max-width: 960px;}
 /* wrap end */
@@ -178,6 +190,29 @@ main{
 	padding: 0px;
 }
 /* wing-banner end */
+
+/* pagination */
+.pagination{
+	font-size: 14px;
+	margin: 40px 0;
+}
+
+.pagination li{ display: inline; }
+.pagination li a {
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+	padding: 8px 12px;
+	
+	-webkit-transition: background-color 0.1s ease-in-out;
+	-moz-transition: background-color 0.1s ease-in-out;
+	-o-transition: background-color 0.1s ease-in-out;
+	transition: background-color 0.1s ease-in-out;
+}
+.pagination li a:hover{ background-color: #e8554e; }
+.pagination li.active a { background-color: #e8554e; }
+/* pagination end */
 
 /* aside */
 .aside-container{
