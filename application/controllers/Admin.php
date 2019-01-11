@@ -26,8 +26,7 @@ class Admin extends CI_Controller {
             if($adminGrade == "S"){
                 redirect(base_url('/admin/adminList'));
             }else{
-                // 기사 관리로 보냅니다.
-                redirect(base_url('/admin/myProfile'));
+                redirect(base_url('/admin/articleList'));
             }
             
         }else{
@@ -43,8 +42,7 @@ class Admin extends CI_Controller {
             if($adminGrade == "S"){
                 redirect(base_url('/admin/adminList'));
             }else{
-                // 기사 관리로 보냅니다.
-                redirect(base_url('/admin/myProfile'));
+                redirect(base_url('/admin/articleList'));
             }
         }else{
             $adminId = $this->input->post('adminId', TRUE);
@@ -76,8 +74,7 @@ class Admin extends CI_Controller {
                     if($adminGrade == "S"){
                         redirect(base_url('/admin/adminList'));
                     }else{
-                        // 기사 관리로 보냅니다.
-                        redirect(base_url('/admin/myProfile'));
+                        redirect(base_url('/admin/articleList'));
                     }
                 }else{
                     $this->util->alert("아이디 / 비밀번호를 확인하여 주시기 바랍니다.","/admin/login");
