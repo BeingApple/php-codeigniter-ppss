@@ -145,6 +145,20 @@
         </div>
     </div>
 
+    <div class="form-group row">
+        <label for="adminBlog" class="col-sm-2 col-form-label" >블로그</label>
+        <div class="col-sm-10">
+            <input type="text" id="adminBlog" name="adminBlog" value="<?php echo $userData->ADMIN_BLOG; ?>" class="form-control" placeholder="블로그" aria-label="블로그">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="adminSns" class="col-sm-2 col-form-label" >SNS</label>
+        <div class="col-sm-10">
+            <input type="text" id="adminSns" name="adminSns" value="<?php echo $userData->ADMIN_SNS; ?>" class="form-control" placeholder="SNS" aria-label="SNS">
+        </div>
+    </div>
+
     <div class="btn-group flright" role="group">
         <button type="button" id="submitBtn" class="btn btn-primary btn-sm"><?php echo ($userData->ADMIN_SEQ > 0)?"수정":"등록"; ?></button>
         <?php if($adminData->ADMIN_GRADE == "S"){ ?>

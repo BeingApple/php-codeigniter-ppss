@@ -159,6 +159,16 @@ class Admin extends CI_Controller {
                 $data["ADMIN_GRADE"] = $this->input->post("adminGrade", TRUE); 
                 $data["ADMIN_WRITE_AUTH"] = $this->input->post("adminWriteAuth", TRUE); 
                 $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
+                $data["ADMIN_SNS"] = $this->input->post("adminSns", TRUE);
+                $data["ADMIN_BLOG"] = $this->input->post("adminBlog", TRUE);
+
+                if($data["ADMIN_SNS"] != NULL){
+                    $data["ADMIN_SNS"] = prep_url($data["ADMIN_SNS"]);
+                }
+
+                if($data["ADMIN_BLOG"] != NULL){
+                    $data["ADMIN_BLOG"] = prep_url($data["ADMIN_BLOG"]);
+                }
 
                 if(! $files = $this->util->multipleImageUpload("admin")) {
                     //error
@@ -208,6 +218,16 @@ class Admin extends CI_Controller {
                 $data["ADMIN_GRADE"] = $this->input->post("adminGrade", TRUE); 
                 $data["ADMIN_WRITE_AUTH"] = $this->input->post("adminWriteAuth", TRUE); 
                 $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
+                $data["ADMIN_SNS"] = $this->input->post("adminSns", TRUE);
+                $data["ADMIN_BLOG"] = $this->input->post("adminBlog", TRUE);
+
+                if($data["ADMIN_SNS"] != NULL){
+                    $data["ADMIN_SNS"] = prep_url($data["ADMIN_SNS"]);
+                }
+
+                if($data["ADMIN_BLOG"] != NULL){
+                    $data["ADMIN_BLOG"] = prep_url($data["ADMIN_BLOG"]);
+                }
 
                 $where = array();
                 $where['ADMIN_SEQ'] = $seq;
@@ -291,6 +311,16 @@ class Admin extends CI_Controller {
                     $data["ADMIN_PASSWORD"] = hash('sha256', $password);
                 }
                 $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
+                $data["ADMIN_SNS"] = $this->input->post("adminSns", TRUE);
+                $data["ADMIN_BLOG"] = $this->input->post("adminBlog", TRUE);
+
+                if($data["ADMIN_SNS"] != NULL){
+                    $data["ADMIN_SNS"] = prep_url($data["ADMIN_SNS"]);
+                }
+
+                if($data["ADMIN_BLOG"] != NULL){
+                    $data["ADMIN_BLOG"] = prep_url($data["ADMIN_BLOG"]);
+                }
 
                 $where = array();
                 $where['ADMIN_SEQ'] = $seq;

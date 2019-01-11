@@ -11,6 +11,8 @@ class Admin_model extends CI_Model{
     public $ADMIN_FILE_ORG;
     public $ADMIN_DESC;
     public $ADMIN_WRITE_AUTH;
+    public $ADMIN_BLOG;
+    public $ADMIN_SNS;
     public $USE_YN;
     public $DEL_YN;
     public $REG_DATE;
