@@ -2,7 +2,7 @@
     <h1 class="h2">관리자 / 필자 등록</h1>
 </div>
 
-<form id="dataForm" method="POST" action="/admin/adminWriteProc" enctype="multipart/form-data"> 
+<form id="dataForm" method="POST" action="<?php echo ($adminData->ADMIN_GRADE == "S")?"/admin/adminWriteProc":"/admin/myProfileProc";?>" enctype="multipart/form-data"> 
     <?php
         if($userData->ADMIN_SEQ > 0){
     ?>
