@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
+    public $SUPER_ADMIN = FALSE;
 
 	function __construct(){
         parent::__construct();
@@ -75,6 +76,9 @@ class Admin extends CI_Controller {
     }
 
     public function adminList($page = 1){
+        //슈퍼 어드민 전용
+        $this->SUPER_ADMIN = TRUE;
+
         $data = array();
         $where = array();
 
@@ -109,6 +113,9 @@ class Admin extends CI_Controller {
     }
 
     public function adminWrite($adminSeq = 0){
+        //슈퍼 어드민 전용
+        $this->SUPER_ADMIN = TRUE;
+
         $data = array();
 
         $data["userData"] = $this->admin_model;
@@ -121,6 +128,9 @@ class Admin extends CI_Controller {
     }
 
     public function adminWriteProc(){
+        //슈퍼 어드민 전용
+        $this->SUPER_ADMIN = TRUE;
+
         $data = array();
 
         $mode = $this->input->post("mode", TRUE);

@@ -45,7 +45,7 @@
 
 			$this->view('admin/template/layout', $param);
 		}else{
-			//redirect(base_url('/admin/login'));
+			redirect(base_url('/admin/login'));
 		}
      }
  }

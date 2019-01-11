@@ -14,7 +14,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $hook['post_controller_constructor'][] = array(
     'class'    => 'Permission',
-    'function' => 'permission',
+    'function' => 'adminPermission',
+    'filename' => 'permission.php',
+    'filepath' => 'hooks'
+);
+
+$hook['post_controller'][] = array(
+    'class'    => 'Permission',
+    'function' => 'adminAuth',
     'filename' => 'permission.php',
     'filepath' => 'hooks'
 );
