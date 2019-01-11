@@ -10,7 +10,7 @@ class Permission{
         $adminData =  $CI->session->userdata('adminData');
 
         if(strpos($CI->uri->uri_string,"admin") !== FALSE){
-            if($CI->uri->uri_string != "admin/login" && $adminData == NULL){
+            if($CI->uri->uri_string != "admin/login" && $CI->uri->uri_string != "admin" && $adminData == NULL){
                 $CI->util->alert("로그인이 필요합니다.","/admin/login");
             }
         }

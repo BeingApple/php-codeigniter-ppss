@@ -469,6 +469,32 @@ class Admin extends CI_Controller {
                 $data["AUTH_YN"] = "Y";
             }
 
+            if(! $files = $this->util->multipleImageUpload("article")) {
+                //error
+            }else{
+                foreach($files as $key => $value){
+                    //이미지일 때만 반영
+                    if($value["is_image"] == 1){
+                        $data["ARTICLE_FILE_NAME"] = $value["file_name"];
+                        $data["ARTICLE_FILE_ORG"] = $value["orig_name"];
+
+                        //이미지 사이즈 수정
+                        $config =  array(
+                            'image_library'   => 'gd2',
+                            'source_image'    =>  $value['full_path'],
+                            'create_thumb'    =>  TRUE,
+                            'maintain_ratio'  =>  FALSE,
+                            'width'           =>  150,
+                            'height'          =>  150,
+                        );
+
+                        $this->image_lib->clear();
+                        $this->image_lib->initialize($config);
+                        $this->image_lib->resize();
+                    }
+                }
+            }
+
             $queryResult = $this->article_model->articleInsert($data);
         }else if($mode == "modify"){
             $seq = $this->input->post("articleSeq", TRUE);
@@ -480,6 +506,32 @@ class Admin extends CI_Controller {
                 $data["ARTICLE_TITLE"] = $this->input->post("articleTitle", TRUE);
                 $data["ARTICLE_CONTENTS"] = $this->input->post("articleContents", TRUE);
                 $data["VIEW_YN"] = $this->input->post("viewYn", TRUE);
+
+                if(! $files = $this->util->multipleImageUpload("article")) {
+                    //error
+                }else{
+                    foreach($files as $key => $value){
+                        //이미지일 때만 반영
+                        if($value["is_image"] == 1){
+                            $data["ARTICLE_FILE_NAME"] = $value["file_name"];
+                            $data["ARTICLE_FILE_ORG"] = $value["orig_name"];
+
+                            //이미지 사이즈 수정
+                            $config =  array(
+                                'image_library'   => 'gd2',
+                                'source_image'    =>  $value['full_path'],
+                                'create_thumb'    =>  TRUE,
+                                'maintain_ratio'  =>  FALSE,
+                                'width'           =>  150,
+                                'height'          =>  150,
+                            );
+
+                            $this->image_lib->clear();
+                            $this->image_lib->initialize($config);
+                            $this->image_lib->resize();
+                        }
+                    }
+                }
 
                 $where = array();
                 $where['ARTICLE_SEQ'] = $seq;

@@ -6,6 +6,8 @@ class Article_model extends CI_Model{
     public $ADMIN_SEQ;
     public $ADMIN_NAME;
     public $ARTICLE_CATEGORY;
+    public $ARTICLE_FILE_NAME;
+    public $ARTICLE_FILE_ORG;
     public $ARTICLE_TITLE;
     public $ARTICLE_CONTENTS;
     public $VIEW_YN;

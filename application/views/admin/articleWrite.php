@@ -2,7 +2,7 @@
     <h1 class="h2">기사 등록</h1>
 </div>
 
-<form id="dataForm" method="POST" action="/admin/articleWriteProc"> 
+<form id="dataForm" method="POST" action="/admin/articleWriteProc" enctype="multipart/form-data"> 
     <?php
         if($articleData->ARTICLE_SEQ > 0){
     ?>
@@ -29,6 +29,29 @@
         <div class="col-sm-10">
             <input type="text" id="articleCategory" name="articleCategory" value="<?php echo $articleData->ARTICLE_CATEGORY; ?>" class="form-control" placeholder="카테고리" aria-label="카테고리">
             <div class="invalid-feedback"></div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" >대표 이미지</label>
+        <div class="col-sm-10">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" name="customFile" id="customFile">
+                <label class="custom-file-label" for="customFile">파일을 선택하세요</label>
+                <small id="fileHelpBlock" class="form-text text-muted">
+                    <?php
+                        if($articleData->ARTICLE_FILE_NAME != NULL){
+                    ?>
+                            <a href="/uploads/ppss/article/<?php echo $articleData->ARTICLE_FILE_NAME; ?>" target="_blank"><?php echo $articleData->ARTICLE_FILE_ORG; ?></a>
+                    <?php
+                        }else{
+                    ?>
+                            이미지만 적용 됩니다.
+                    <?php
+                        }
+                    ?>
+                </small>
+            </div>
         </div>
     </div>
 
@@ -110,6 +133,11 @@
             });
 
             $(this).val("");
+        });
+
+        $('#customFile').on('change',function(e){
+            var fileName = e.target.files[0].name;
+            $(this).next('.custom-file-label').html(fileName);
         });
 
         $("#submitBtn").on("click", function(){
