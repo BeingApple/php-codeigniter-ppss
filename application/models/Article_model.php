@@ -20,6 +20,10 @@ class Article_model extends CI_Model{
     }
 
     public function articleListCount($where = array()){
+        if($where['ADMIN_SEQ'] != NULL && $where['ADMIN_SEQ'] != ""){
+            $this->db->where('ADMIN_SEQ', $where['ADMIN_SEQ']);
+        }
+
         if($where['ARTICLE_TITLE'] != NULL && $where['ARTICLE_TITLE'] != ""){
             $this->db->like('ARTICLE_TITLE', $where['ARTICLE_TITLE'], 'both');
         }
@@ -52,6 +56,10 @@ class Article_model extends CI_Model{
     }
 
     public function articleList($where = array(), $limit, $offset){
+        if($where['ADMIN_SEQ'] != NULL && $where['ADMIN_SEQ'] != ""){
+            $this->db->where('ADMIN_SEQ', $where['ADMIN_SEQ']);
+        }
+
         if($where['ARTICLE_TITLE'] != NULL && $where['ARTICLE_TITLE'] != ""){
             $this->db->like('ARTICLE_TITLE', $where['ARTICLE_TITLE'], 'both');
         }

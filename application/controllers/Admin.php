@@ -134,6 +134,10 @@ class Admin extends CI_Controller {
 
         if($adminSeq > 0){
             $data["userData"] = $this->admin_model->adminData($adminSeq);
+
+            if($data["userData"] == NULL){
+                $this->util->alert("잘못된 접근입니다.", "/admin/adminList");
+            }
         }
 
         $this->load->admin('admin/adminWrite', $data);
@@ -339,6 +343,15 @@ class Admin extends CI_Controller {
         $data = array();
         $where = array();
 
+        $adminData =  $this->session->userdata('adminData');
+
+        //조건
+        if($adminData->ADMIN_GRADE != "S"){
+            $where['ADMIN_SEQ'] = $adminData->ADMIN_SEQ;
+        }else{
+            $where['ADMIN_SEQ'] = NULL;
+        }
+
         //검색
         $where['ARTICLE_TITLE'] = $this->input->get('articleTitle', true);
         $where['ADMIN_NAME'] = $this->input->get('adminName', true);
@@ -377,7 +390,19 @@ class Admin extends CI_Controller {
         $data["articleData"] = $this->article_model;
 
         if($articleSeq > 0){
-            $data["articleData"] = $this->article_model->articleData($articleSeq);
+            $articleData = $this->article_model->articleData($articleSeq);
+
+            if($articleData != NULL){
+                //슈퍼 관리자가 아닐 경우 본인의 글인지 체크
+                $adminData =  $this->session->userdata('adminData');
+                if($adminData->ADMIN_GRADE != "S"){
+                    if($articleData->ADMIN_SEQ != $adminData->ADMIN_SEQ){
+                        $this->util->alert("본인의 기사만 확인할 수 있습니다.", "/admin/articleList");
+                    }
+                }
+
+                $data["articleData"] = $articleData;
+            }
         }
 
         $this->load->admin('admin/articleWrite', $data);
@@ -423,7 +448,7 @@ class Admin extends CI_Controller {
 
             $checkData = $this->article_model->articleData($seq);
 
-            if($checkData->ADMIN_SEQ == $adminData->ADMIN_SEQ){
+            if($adminData->ADMIN_GRADE == "S" || ($checkData->ADMIN_SEQ == $adminData->ADMIN_SEQ)){
                 $data["ARTICLE_CATEGORY"] = $this->input->post("articleCategory", TRUE);
                 $data["ARTICLE_TITLE"] = $this->input->post("articleTitle", TRUE);
                 $data["ARTICLE_CONTENTS"] = $this->input->post("articleContents", TRUE);

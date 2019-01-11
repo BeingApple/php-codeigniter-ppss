@@ -28,7 +28,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/admin/articleList">
                     <span data-feather="file-text"></span>
                     기사 관리
                 </a>
