@@ -97,6 +97,12 @@ class Article_model extends CI_Model{
         return $query->row();
     }
 
+    public function articleFrontData($idx){
+        $query = $this->db->get_where('TBL_ARTICLE', array('ARTICLE_SEQ' => $idx, 'DEL_YN' => 'N', 'VIEW_YN' => 'Y', 'AUTH_YN' => 'Y'));
+
+        return $query->row();
+    }
+
     public function articleInsert($data){
         return $this->db->insert("TBL_ARTICLE", $data);
     }

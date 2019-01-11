@@ -109,6 +109,12 @@ class Admin_model extends CI_Model{
         return $query->row();
     }
 
+    public function adminFrontData($idx){
+        $query = $this->db->get_where('TBL_ADMIN', array('ADMIN_SEQ' => $idx, 'DEL_YN' => 'N', 'USE_YN' => 'Y'));
+
+        return $query->row();
+    }
+
     public function adminInsert($data){
         return $this->db->insert("TBL_ADMIN", $data);
     }
