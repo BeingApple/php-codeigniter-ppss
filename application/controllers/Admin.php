@@ -396,6 +396,57 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function articleWriteProc(){
+        $data = array();
+
+        $mode = $this->input->post("mode", TRUE);
+
+        $queryResult = 0;
+
+        $adminData =  $this->session->userdata('adminData');
+
+        if($mode == "write"){
+            $data["ADMIN_SEQ"] = $adminData->ADMIN_SEQ;
+            $data["ADMIN_NAME"] = $adminData->ADMIN_NAME;
+            $data["ARTICLE_CATEGORY"] = $this->input->post("articleCategory", TRUE);
+            $data["ARTICLE_TITLE"] = $this->input->post("articleTitle", TRUE);
+            $data["ARTICLE_CONTENTS"] = $this->input->post("articleContents", TRUE);
+            $data["VIEW_YN"] = $this->input->post("viewYn", TRUE);
+
+            if($adminData->ADMIN_WRITE_AUTH == "N"){
+                $data["AUTH_YN"] = "Y";
+            }
+
+            $queryResult = $this->article_model->articleInsert($data);
+        }else if($mode == "modify"){
+            $seq = $this->input->post("articleSeq", TRUE);
+
+            $checkData = $this->article_model->articleData($seq);
+
+            if($checkData->ADMIN_SEQ == $adminData->ADMIN_SEQ){
+                $data["ARTICLE_CATEGORY"] = $this->input->post("articleCategory", TRUE);
+                $data["ARTICLE_TITLE"] = $this->input->post("articleTitle", TRUE);
+                $data["ARTICLE_CONTENTS"] = $this->input->post("articleContents", TRUE);
+                $data["VIEW_YN"] = $this->input->post("viewYn", TRUE);
+
+                $where = array();
+                $where['ARTICLE_SEQ'] = $seq;
+
+                $queryResult = $this->article_model->articleUpdate($data, $where);
+            }else{
+                $this->util->alert("본인의 기사만 수정할 수 있습니다.", "/admin/articleList");
+            }
+        }
+
+        if($queryResult == 1){
+            $this->util->alert("입력 됐습니다.", "/admin/articleList");
+        }else{
+            $this->util->alert("입력에 실패했습니다. 관리자에게 문의해주시기 바랍니다.", "/admin/articleList");
+        }
+
+        redirect(base_url("/admin/articleList"));
+    }
+
     public function idCheck(){
         $id = $this->input->post("adminId", TRUE);
 

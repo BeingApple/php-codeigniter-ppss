@@ -17,7 +17,7 @@
     ?>
 
     <div class="form-group row">
-        <label for="adminPassword" class="col-sm-2 col-form-label" >제목</label>
+        <label for="articleTitle" class="col-sm-2 col-form-label" >제목</label>
         <div class="col-sm-10">
             <input type="text" id="articleTitle" name="articleTitle" value="<?php echo $articleData->ARTICLE_TITLE; ?>" class="form-control" placeholder="제목" aria-label="제목">
             <div class="invalid-feedback"></div>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="form-group row">
-    <label for="adminPassword" class="col-sm-2 col-form-label" >카테고리</label>
+    <label for="articleCategory" class="col-sm-2 col-form-label" >카테고리</label>
         <div class="col-sm-10">
             <input type="text" id="articleCategory" name="articleCategory" value="<?php echo $articleData->ARTICLE_CATEGORY; ?>" class="form-control" placeholder="카테고리" aria-label="카테고리">
             <div class="invalid-feedback"></div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group row">
-    <label for="adminPassword" class="col-sm-2 col-form-label" >내용</label>
+    <label for="articleContents" class="col-sm-2 col-form-label" >내용</label>
         <div class="col-sm-10">
             <textarea class="form-control" id="articleContents" name="articleContents" rows="20">
                 <?php echo $articleData->ARTICLE_CONTENTS; ?>

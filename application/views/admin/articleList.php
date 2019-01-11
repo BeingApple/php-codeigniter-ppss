@@ -79,7 +79,7 @@
             ?>
                         <tr>
                             <td><?php echo $offset + ($index + 1); ?></td>
-                            <td><a href="/admin/articleWrite/<?php echo $data->ARTICLE_TITLE; ?>"><?php echo $data->ARTICLE_TITLE; ?></a></td>
+                            <td><a href="/admin/articleWrite/<?php echo $data->ARTICLE_SEQ; ?>"><?php echo $data->ARTICLE_TITLE; ?></a></td>
                             <td><?php echo $data->ADMIN_NAME; ?></td>
                             <td><?php echo $data->ARTICLE_CATEGORY; ?></td>
                             <td><?php 
