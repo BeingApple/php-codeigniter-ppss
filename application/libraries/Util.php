@@ -2,17 +2,73 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Util{
-    function multiple_upload() {
-        if(is_dir('uploads/ppss/')){
+    function multipleUpload($path) {
+        $CI =& get_instance();
+        $CI->config->load('upload', TRUE);
+
+        $config = $CI->config->config['upload'];
+        $config['upload_path'] = $config['upload_path'].$path."/";
+
+        if(is_dir($config['upload_path'])){
 
         }else{
-            if(@mkdir('uploads/ppss/', 0700, true)){}
+            if(@mkdir($config['upload_path'], 0700, true)){}
             else{ return FALSE; }
         }
-        $CI = & get_instance ();
+
         $files = array ();
         
-        $CI->load->library ( 'upload' );
+        $CI->load->library ('upload', $config);
+        
+        $errors = FALSE;
+        
+        foreach ( $_FILES as $key => $value ) {
+            // print_r($key);
+            if (! $CI->upload->do_upload ( $key)) {
+                // $data['upload_message'] = $CI->upload->display_errors(); // ERR_OPEN and ERR_CLOSE are error delimiters defined in a config file
+                // $CI->load->vars($data);
+                // echo "<pre>";
+                // print_r($data['upload_message']);
+                // echo "</pre>";
+                // $errors = TRUE;
+            } else {
+                // Build a file array from all uploaded files
+                $files[$key] = $CI->upload->data ();
+            }
+        }
+        
+        // There was errors, we have to delete the uploaded files
+        if ($errors) {
+            foreach ( $files as $key => $file ) {
+                @unlink ( $file ['full_path'] );
+            }
+        } elseif (empty ( $files ) and empty ( $data ['upload_message'] )) {
+            $CI->lang->load ( 'upload' );
+            $data ['upload_message'] = $CI->lang->line ( 'upload_no_file_selected' );
+            $CI->load->vars ( $data );
+        } else {
+            return $files;
+        }
+    }
+
+    function multipleImageUpload($path) {
+        $CI =& get_instance();
+        $CI->config->load('upload', TRUE);
+
+        $config = $CI->config->config['upload'];
+        $config['upload_path'] = $config['upload_path'].$path."/";
+        $config['allowed_types'] = "gif|jpg|png|jpeg";
+
+        if(is_dir($config['upload_path'])){
+
+        }else{
+            if(@mkdir($config['upload_path'], 0700, true)){}
+            else{ return FALSE; }
+        }
+
+        $files = array ();
+        
+        $CI->load->library ('upload', $config);
         
         $errors = FALSE;
         

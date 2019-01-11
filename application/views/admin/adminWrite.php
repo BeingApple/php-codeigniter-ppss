@@ -25,7 +25,7 @@
                     <?php
                         if($userData->ADMIN_FILE_NAME != NULL){
                     ?>
-                            <a href="/uploads/ppss/<?php echo $userData->ADMIN_FILE_NAME; ?>" target="_blank"><?php echo $userData->ADMIN_FILE_ORG; ?></a>
+                            <a href="/uploads/ppss/admin/<?php echo $userData->ADMIN_FILE_NAME; ?>" target="_blank"><?php echo $userData->ADMIN_FILE_ORG; ?></a>
                     <?php
                         }else{
                     ?>

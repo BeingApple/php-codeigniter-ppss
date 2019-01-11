@@ -79,7 +79,7 @@
                             <td><?php echo $offset + ($index + 1); ?></td>
                             <td>
                                 <?php if($data->ADMIN_FILE_NAME != NULL){ ?>
-                                    <img src="/uploads/ppss/<?php echo $data->ADMIN_FILE_NAME; ?>" />
+                                    <img src="/uploads/ppss/admin/<?php echo $data->ADMIN_FILE_NAME; ?>" />
                                 <?php } ?>
                             </td>
                             <td><a href="/admin/adminWrite/<?php echo $data->ADMIN_SEQ; ?>"><?php echo $data->ADMIN_NAME; ?></a></td>

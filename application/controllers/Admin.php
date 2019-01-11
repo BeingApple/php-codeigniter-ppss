@@ -159,7 +159,7 @@ class Admin extends CI_Controller {
                 $data["ADMIN_WRITE_AUTH"] = $this->input->post("adminWriteAuth", TRUE); 
                 $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
 
-                if(! $files = $this->util->multiple_upload()) {
+                if(! $files = $this->util->multipleImageUpload("admin")) {
                     //error
                 }else{
                     foreach($files as $key => $value){
@@ -211,7 +211,7 @@ class Admin extends CI_Controller {
                 $where = array();
                 $where['ADMIN_SEQ'] = $seq;
 
-                if(! $files = $this->util->multiple_upload()) {
+                if(! $files = $this->util->multipleImageUpload("admin")) {
                     //error
                 }else{
                     foreach($files as $key => $value){
@@ -294,7 +294,7 @@ class Admin extends CI_Controller {
                 $where = array();
                 $where['ADMIN_SEQ'] = $seq;
 
-                if(! $files = $this->util->multiple_upload()) {
+                if(! $files = $this->util->multipleImageUpload("admin")) {
                     //error
                 }else{
                     foreach($files as $key => $value){
@@ -369,6 +369,31 @@ class Admin extends CI_Controller {
         $data['articleList'] = $this->article_model->articleList($where, $perPage, $offset);
 
         $this->load->admin('admin/articleList', $data);
+    }
+
+    public function articleWrite($articleSeq = 0){
+        $data = array();
+
+        $data["articleData"] = $this->article_model;
+
+        if($articleSeq > 0){
+            $data["articleData"] = $this->article_model->articleData($articleSeq);
+        }
+
+        $this->load->admin('admin/articleWrite', $data);
+    }
+
+    public function editorImageUpload(){
+        if(! $files = $this->util->multipleImageUpload("article")) {
+            //error
+        }else{
+            foreach($files as $key => $value){
+                //이미지일 때만 반영
+                if($value["is_image"] == 1){
+                    echo "top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('".base_url("/uploads/ppss/article/".$value["file_name"])."').closest('.mce-window').find('.mce-primary').click();";
+                }
+            }
+        }
     }
 
     public function idCheck(){
