@@ -18,9 +18,17 @@ class Admin extends CI_Controller {
 
 	public function index(){
         if($this->_loginCheck()){
-            redirect(base_url('/admin/adminList'));
+            $adminData =  $this->session->userdata('adminData');
+            $adminGrade = $adminData->ADMIN_GRADE;
+
+            if($adminGrade == "S"){
+                redirect(base_url('/admin/adminList'));
+            }else{
+                // 기사 관리로 보냅니다.
+            }
+            
         }else{
-            $this->login();
+            redirect(base_url('/admin/login'));
         }
     }
     
@@ -35,7 +43,7 @@ class Admin extends CI_Controller {
             //아이디 저장
             if($adminId != NULL && $rememberMe != NULL){
                 //10일간 유지됩니다.
-                $this->input->set_cookie("rememberId", $adminId, 86400);
+                $this->input->set_cookie("rememberId", $adminId, 864000);
             }
 
             if($adminId == NULL && $adminPassword == NULL){
@@ -100,13 +108,13 @@ class Admin extends CI_Controller {
         $this->load->admin('admin/adminList', $data);
     }
 
-    public function adminWrite($adminIndex = 0){
+    public function adminWrite($adminSeq = 0){
         $data = array();
 
         $data["userData"] = $this->admin_model;
 
-        if($adminIndex > 0){
-            $data["userData"] = $this->admin_model->adminData($adminIndex);
+        if($adminSeq > 0){
+            $data["userData"] = $this->admin_model->adminData($adminSeq);
         }
 
         $this->load->admin('admin/adminWrite', $data);
