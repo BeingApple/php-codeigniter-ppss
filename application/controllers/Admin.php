@@ -397,7 +397,7 @@ class Admin extends CI_Controller {
                 $adminData =  $this->session->userdata('adminData');
                 if($adminData->ADMIN_GRADE != "S"){
                     if($articleData->ADMIN_SEQ != $adminData->ADMIN_SEQ){
-                        $this->util->alert("본인의 기사만 확인할 수 있습니다.", "/admin/articleList");
+                        $this->util->alert("잘못된 접근입니다.", "/admin/articleList");
                     }
                 }
 
@@ -459,7 +459,7 @@ class Admin extends CI_Controller {
 
                 $queryResult = $this->article_model->articleUpdate($data, $where);
             }else{
-                $this->util->alert("본인의 기사만 수정할 수 있습니다.", "/admin/articleList");
+                $this->util->alert("잘못된 접근입니다.", "/admin/articleList");
             }
         }
 
