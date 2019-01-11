@@ -114,6 +114,25 @@
             </div>
         </div>
 
+        <fieldset  class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">사전 승인 여부</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="adminWriteAuth" id="adminWriteAuth1" value="Y" <?php echo ($userData->ADMIN_WRITE_AUTH == "Y")?"checked":""; ?> >
+                        <label class="form-check-label" for="useYn1">사용</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="adminWriteAuth" id="adminWriteAuth2" value="N" <?php echo ($userData->ADMIN_WRITE_AUTH == "N" || is_null($userData->ADMIN_WRITE_AUTH))?"checked":""; ?>>
+                        <label class="form-check-label" for="useYn2">사용 안 함</label>
+                    </div>
+                    <small id="adminWriteAuthHelpBlock" class="form-text text-muted">
+                        필자가 작성한 글을 승인 검토 후 ㅍㅍㅅㅅ에 노출 시킬지 설정합니다.
+                    </small>
+                </div>
+            </div>
+        </fieldset >
+
     <?php } ?>
 
     <div class="form-group row">

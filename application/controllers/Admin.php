@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
-    public $SUPER_ADMIN = FALSE;
+    public $SUPER_ADMIN = array("adminList", "adminWrite");
 
 	function __construct(){
         parent::__construct();
@@ -37,7 +37,15 @@ class Admin extends CI_Controller {
     
     public function login(){
         if($this->_loginCheck()){
-            redirect(base_url('/admin/adminList'));
+            $adminData =  $this->session->userdata('adminData');
+            $adminGrade = $adminData->ADMIN_GRADE;
+
+            if($adminGrade == "S"){
+                redirect(base_url('/admin/adminList'));
+            }else{
+                // 기사 관리로 보냅니다.
+                redirect(base_url('/admin/myProfile'));
+            }
         }else{
             $adminId = $this->input->post('adminId', TRUE);
             $adminPassword = $this->input->post('adminPassword', TRUE);
@@ -85,9 +93,6 @@ class Admin extends CI_Controller {
     }
 
     public function adminList($page = 1){
-        //슈퍼 어드민 전용
-        $this->SUPER_ADMIN = TRUE;
-
         $data = array();
         $where = array();
 
@@ -122,9 +127,6 @@ class Admin extends CI_Controller {
     }
 
     public function adminWrite($adminSeq = 0){
-        //슈퍼 어드민 전용
-        $this->SUPER_ADMIN = TRUE;
-
         $data = array();
 
         $data["userData"] = $this->admin_model;
@@ -137,8 +139,6 @@ class Admin extends CI_Controller {
     }
 
     public function adminWriteProc(){
-        //슈퍼 어드민 전용
-        $this->SUPER_ADMIN = TRUE;
         $redirectUrl = "/admin/myProfile";
 
         $adminData =  $this->session->userdata('adminData');
@@ -154,7 +154,7 @@ class Admin extends CI_Controller {
 
         $queryResult = 0;
 
-        if($mode == "write"){
+        if($mode == "write" && $adminGrade == "S"){
             $id = $this->input->post("adminId", TRUE);
             $count = $this->admin_model->idCheck($id);
 
@@ -164,6 +164,7 @@ class Admin extends CI_Controller {
                 $data["ADMIN_PASSWORD"] = hash('sha256', $this->input->post("adminPassword", TRUE));
                 $data["USE_YN"] = $this->input->post("useYn", TRUE);
                 $data["ADMIN_GRADE"] = $this->input->post("adminGrade", TRUE); 
+                $data["ADMIN_WRITE_AUTH"] = $this->input->post("adminWriteAuth", TRUE); 
                 $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
 
                 if(! $files = $this->util->multiple_upload('admin')) {
@@ -213,6 +214,7 @@ class Admin extends CI_Controller {
                 if($adminGrade == "S"){
                     $data["USE_YN"] = $this->input->post("useYn", TRUE);
                     $data["ADMIN_GRADE"] = $this->input->post("adminGrade", TRUE); 
+                    $data["ADMIN_WRITE_AUTH"] = $this->input->post("adminWriteAuth", TRUE); 
                 }
                 $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
 

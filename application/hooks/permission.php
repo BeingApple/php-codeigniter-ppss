@@ -26,8 +26,8 @@ class Permission{
         if(strpos($CI->uri->uri_string,"admin") !== FALSE){
             if($CI->uri->uri_string != "admin/login" && $CI->uri->uri_string != "admin/logout" && $adminData != NULL){
                 $adminGrade = $adminData->ADMIN_GRADE;
-                
-                if($adminGrade != "S" && isset($CI->SUPER_ADMIN) && $CI->SUPER_ADMIN == TRUE){
+
+                if($adminGrade != "S" && isset($CI->SUPER_ADMIN) && in_array($CI->router->method, $CI->SUPER_ADMIN)){
                     $CI->util->alert("권한이 없습니다.","/admin/myProfile");
                 }
             }

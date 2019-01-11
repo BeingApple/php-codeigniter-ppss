@@ -19,7 +19,7 @@ $hook['post_controller_constructor'][] = array(
     'filepath' => 'hooks'
 );
 
-$hook['post_controller'][] = array(
+$hook['post_controller_constructor'][] = array(
     'class'    => 'Permission',
     'function' => 'adminAuth',
     'filename' => 'permission.php',
