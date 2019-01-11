@@ -28,6 +28,24 @@
                 <input type="text" class="form-control" value="<?php echo $search['ARTICLE_CONTENTS'] ?>" id="articleContents" name="articleContents" placeholder="내용">
             </div>
         </div>
+        <div class="form-group row">
+            <div class="form-group col-md-6">
+                <label for="viewYn">노출 여부</label>
+                <select class="form-control" name="viewYn" id="viewYn">
+                    <option value="">전체</option>
+                    <option value="Y" <?php echo ($search['VIEW_YN'] == "Y")?"selected":""; ?>>노출</option>
+                    <option value="N" <?php echo ($search['VIEW_YN'] == "N")?"selected":""; ?>>노출 안 됨</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="authYn">승인 여부</label>
+                <select class="form-control" name="authYn" id="authYn">
+                    <option value="">전체</option>
+                    <option value="Y" <?php echo ($search['AUTH_YN'] == "Y")?"selected":""; ?>>승인</option>
+                    <option value="N" <?php echo ($search['AUTH_YN'] == "N")?"selected":""; ?>>승인 안 됨</option>
+                </select>
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">검색</button>
     </form>
 </div>

@@ -18,7 +18,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="file-text"></span>
-                    기사 등록
+                    기사 목록
                 </a>
             </li>
         </ul>

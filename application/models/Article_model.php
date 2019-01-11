@@ -36,6 +36,14 @@ class Article_model extends CI_Model{
             $this->db->like('ARTICLE_CONTENTS', $where['ARTICLE_CONTENTS'], 'both');
         }
 
+        if($where['VIEW_YN'] != NULL){
+            $this->db->where('VIEW_YN', $where['VIEW_YN']);
+        }
+
+        if($where['AUTH_YN'] != NULL){
+            $this->db->where('AUTH_YN', $where['AUTH_YN']);
+        }
+
         $this->db->where('DEL_YN', $where['DEL_YN']);
 
         $query = $this->db->get('TBL_ARTICLE');

@@ -344,6 +344,8 @@ class Admin extends CI_Controller {
         $where['ADMIN_NAME'] = $this->input->get('adminName', true);
         $where['ARTICLE_CATEGORY'] = $this->input->get('articleCategory', true);
         $where['ARTICLE_CONTENTS'] = $this->input->get('articleContents', true);
+        $where['VIEW_YN'] = $this->input->get('viewYn', true);
+        $where['AUTH_YN'] = $this->input->get('authYn', true);
 
         $data["search"] = $where; 
 
