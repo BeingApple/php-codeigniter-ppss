@@ -124,7 +124,9 @@
 
     <div class="btn-group flright" role="group">
         <button type="button" id="submitBtn" class="btn btn-primary btn-sm"><?php echo ($userData->ADMIN_SEQ > 0)?"수정":"등록"; ?></button>
-        <button type="button" id="cancelBtn" class="btn btn-primary btn-sm">목록</button>
+        <?php if($adminData->ADMIN_GRADE == "S"){ ?>
+            <button type="button" id="cancelBtn" class="btn btn-primary btn-sm">목록</button>
+        <?php } ?>
     </div>
 </form>
 
@@ -133,12 +135,14 @@
         $("#submitBtn").on("click", function(){
             formSubmit();
         });
-
-        $("#cancelBtn").on("click", function(){
-            if(confirm("작성한 내용이 유실 됩니다. 목록으로 돌아가시겠습니까?")){
-                location.href = "/admin/adminList";
-            }
-        });
+        
+        <?php if($adminData->ADMIN_GRADE == "S"){ ?>
+            $("#cancelBtn").on("click", function(){
+                if(confirm("작성한 내용이 유실 됩니다. 목록으로 돌아가시겠습니까?")){
+                    location.href = "/admin/adminList";
+                }
+            });
+        <?php } ?>
 
         $("#btn-dup").on("click", function(){
             dupCheck();

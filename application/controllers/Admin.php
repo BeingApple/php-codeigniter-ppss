@@ -26,6 +26,7 @@ class Admin extends CI_Controller {
                 redirect(base_url('/admin/adminList'));
             }else{
                 // 기사 관리로 보냅니다.
+                redirect(base_url('/admin/myProfile'));
             }
             
         }else{
@@ -61,7 +62,14 @@ class Admin extends CI_Controller {
                     $this->session->set_userdata('adminData', $result);
                     $this->admin_model->lastLoginUpdate($result->ADMIN_SEQ);
 
-                    redirect(base_url('/admin/adminList'));
+                    $adminGrade = $result->ADMIN_GRADE;
+
+                    if($adminGrade == "S"){
+                        redirect(base_url('/admin/adminList'));
+                    }else{
+                        // 기사 관리로 보냅니다.
+                        redirect(base_url('/admin/myProfile'));
+                    }
                 }else{
                     $this->util->alert("아이디 / 비밀번호를 확인하여 주시기 바랍니다.","/admin/login");
                 }
@@ -130,6 +138,14 @@ class Admin extends CI_Controller {
     public function adminWriteProc(){
         //슈퍼 어드민 전용
         $this->SUPER_ADMIN = TRUE;
+        $redirectUrl = "/admin/myProfile";
+
+        $adminData =  $this->session->userdata('adminData');
+        $adminGrade = $adminData->ADMIN_GRADE;
+
+        if($adminGrade == "S"){
+            $redirectUrl = "/admin/adminList";
+        }
 
         $data = array();
 
@@ -177,7 +193,7 @@ class Admin extends CI_Controller {
 
                 $queryResult = $this->admin_model->adminInsert($data);
             }else{
-                $this->util->alert("중복된 아이디입니다.","/admin/adminList");
+                $this->util->alert("중복된 아이디입니다.", $redirectUrl);
             }
         }else if($mode == "modify"){
             $seq = $this->input->post("adminSeq", TRUE);
@@ -228,17 +244,31 @@ class Admin extends CI_Controller {
 
                 $queryResult = $this->admin_model->adminUpdate($data, $where);
             }else{
-                $this->util->alert("중복된 아이디입니다.","/admin/adminList");
+                $this->util->alert("중복된 아이디입니다.", $redirectUrl);
             }
         }
 
         if($queryResult == 1){
-            $this->util->alert("입력 됐습니다.","/admin/adminList");
+            $this->util->alert("입력 됐습니다.", $redirectUrl);
         }else{
-            $this->util->alert("입력에 실패했습니다. 관리자에게 문의해주시기 바랍니다.","/admin/adminList");
+            $this->util->alert("입력에 실패했습니다. 관리자에게 문의해주시기 바랍니다.", $redirectUrl);
         }
 
-        redirect(base_url('/admin/adminList'));
+        redirect(base_url($redirectUrl));
+    }
+
+    public function myProfile(){
+        $data = array();
+        $data["userData"] = $this->admin_model;
+
+        $adminData =  $this->session->userdata('adminData');
+        $adminSeq = $adminData->ADMIN_SEQ;
+
+        if($adminSeq > 0){
+            $data["userData"] = $this->admin_model->adminData($adminSeq);
+        }
+
+        $this->load->admin('admin/adminWrite', $data);
     }
 
     public function idCheck(){
