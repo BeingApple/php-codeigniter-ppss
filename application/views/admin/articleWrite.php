@@ -87,7 +87,8 @@
             ],
             file_browser_callback: function(field_name, url, type, win) {
                 if(type=='image') $('#tinyImage').click();
-            }
+            },
+            language_url : '/js/language/ko_KR.js'
         });
 
         $("#tinyImage").on("change", function(){
