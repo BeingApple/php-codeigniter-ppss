@@ -83,34 +83,38 @@
         </div>
     </div>
 
-    <fieldset  class="form-group">
-        <div class="row">
-            <legend class="col-form-label col-sm-2 pt-0">사용 여부</legend>
-            <div class="col-sm-10">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="useYn" id="useYn1" value="Y" <?php echo ($userData->USE_YN == "Y")?"checked":""; ?> >
-                    <label class="form-check-label" for="useYn1">사용</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="useYn" id="useYn2" value="N" <?php echo ($userData->USE_YN == "N" || is_null($userData->USE_YN))?"checked":""; ?>>
-                    <label class="form-check-label" for="useYn2">사용 안 함</label>
+    <?php if($adminData->ADMIN_GRADE == "S"){ ?>
+
+        <fieldset  class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">사용 여부</legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="useYn" id="useYn1" value="Y" <?php echo ($userData->USE_YN == "Y")?"checked":""; ?> >
+                        <label class="form-check-label" for="useYn1">사용</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="useYn" id="useYn2" value="N" <?php echo ($userData->USE_YN == "N" || is_null($userData->USE_YN))?"checked":""; ?>>
+                        <label class="form-check-label" for="useYn2">사용 안 함</label>
+                    </div>
                 </div>
             </div>
-        </div>
-    </fieldset >
+        </fieldset >
 
-    <div class="form-group row">
-        <label for="adminGrade" class="col-sm-2 col-form-label" >권한</label>
-        <div class="col-sm-10">
-            <select class="form-control" name="adminGrade" id="adminGrade">
-                <option value="S" <?php echo ($userData->ADMIN_GRADE == "S")?"selected":""; ?>>슈퍼 관리자</option>
-                <option value="W" <?php echo ($userData->ADMIN_GRADE == "W")?"selected":""; ?>>필자</option>
-            </select>
-            <small id="adminGradeHelpBlock" class="form-text text-muted">
-                슈퍼 관리자는 관리자의 모든 권한이 부여됩니다. 반면에 필자는 글 쓰기와 오직 자신의 글만 관리할 수 있습니다. 
-            </small>
+        <div class="form-group row">
+            <label for="adminGrade" class="col-sm-2 col-form-label" >권한</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="adminGrade" id="adminGrade">
+                    <option value="S" <?php echo ($userData->ADMIN_GRADE == "S")?"selected":""; ?>>슈퍼 관리자</option>
+                    <option value="W" <?php echo ($userData->ADMIN_GRADE == "W")?"selected":""; ?>>필자</option>
+                </select>
+                <small id="adminGradeHelpBlock" class="form-text text-muted">
+                    슈퍼 관리자는 관리자의 모든 권한이 부여됩니다. 반면에 필자는 글 쓰기와 오직 자신의 글만 관리할 수 있습니다. 
+                </small>
+            </div>
         </div>
-    </div>
+
+    <?php } ?>
 
     <div class="form-group row">
         <label for="adminDesc" class="col-sm-2 col-form-label" >설명글</label>

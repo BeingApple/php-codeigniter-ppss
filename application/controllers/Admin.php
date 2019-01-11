@@ -13,6 +13,7 @@ class Admin extends CI_Controller {
         $this->load->library('pagination');
 
         $this->load->model('admin_model');
+        $this->load->model('article_model');
 
         $this->config->load('pagination', TRUE);
 	}
@@ -209,8 +210,10 @@ class Admin extends CI_Controller {
                 if($password != NULL){
                     $data["ADMIN_PASSWORD"] = hash('sha256', $password);
                 }
-                $data["USE_YN"] = $this->input->post("useYn", TRUE);
-                $data["ADMIN_GRADE"] = $this->input->post("adminGrade", TRUE); 
+                if($adminGrade == "S"){
+                    $data["USE_YN"] = $this->input->post("useYn", TRUE);
+                    $data["ADMIN_GRADE"] = $this->input->post("adminGrade", TRUE); 
+                }
                 $data["ADMIN_DESC"] = $this->input->post("adminDesc", TRUE);
 
                 $where = array();
@@ -271,6 +274,40 @@ class Admin extends CI_Controller {
         $this->load->admin('admin/adminWrite', $data);
     }
 
+    public function articleList($page = 1){
+        $data = array();
+        $where = array();
+
+        //검색
+        $where['ARTICLE_TITLE'] = $this->input->get('articleTitle', true);
+        $where['ADMIN_NAME'] = $this->input->get('adminName', true);
+        $where['ARTICLE_CATEGORY'] = $this->input->get('articleCategory', true);
+        $where['ARTICLE_CONTENTS'] = $this->input->get('articleContents', true);
+
+        $data["search"] = $where; 
+
+        $where['DEL_YN'] = 'N'; 
+        
+        //페이징
+        $config = $this->config->config['pagination'];
+        $config['base_url'] = '/admin/articleList';
+        $config['total_rows'] = $this->article_model->articleListCount($where);
+
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+
+        //리스트
+        $perPage = $config['per_page'];
+        $offset = $perPage * ($page - 1);
+
+        $data['offset'] = $offset;
+        $data['page'] = $page;
+
+        $data['articleList'] = $this->article_model->articleList($where, $perPage, $offset);
+
+        $this->load->admin('admin/articleList', $data);
+    }
+
     public function idCheck(){
         $id = $this->input->post("adminId", TRUE);
 
@@ -288,6 +325,8 @@ class Admin extends CI_Controller {
         }
 
     }
+
+
 
     private function _loginCheck(){
         $adminData =  $this->session->userdata('adminData');

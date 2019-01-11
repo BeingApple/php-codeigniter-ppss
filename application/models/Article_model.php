@@ -8,6 +8,8 @@ class Article_model extends CI_Model{
     public $ARTICLE_CATEGORY;
     public $ARTICLE_TITLE;
     public $ARTICLE_CONTENTS;
+    public $VIEW_YN;
+    public $AUTH_YN;
     public $DEL_YN;
     public $REG_DATE;
 
