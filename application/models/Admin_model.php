@@ -60,6 +60,10 @@ class Admin_model extends CI_Model{
             $this->db->where('ADMIN_GRADE', $where['ADMIN_GRADE']);
         }
 
+        if($where['ADMIN_WRITE_AUTH'] != NULL && $where['ADMIN_WRITE_AUTH'] != ""){
+            $this->db->where('ADMIN_WRITE_AUTH', $where['ADMIN_WRITE_AUTH']);
+        }
+
         if($where['USE_YN'] != NULL && $where['USE_YN'] != ""){
             $this->db->where('USE_YN', $where['USE_YN']);
         }
@@ -82,6 +86,10 @@ class Admin_model extends CI_Model{
 
         if($where['ADMIN_GRADE'] != NULL){
             $this->db->where('ADMIN_GRADE', $where['ADMIN_GRADE']);
+        }
+
+        if($where['ADMIN_WRITE_AUTH'] != NULL && $where['ADMIN_WRITE_AUTH'] != ""){
+            $this->db->where('ADMIN_WRITE_AUTH', $where['ADMIN_WRITE_AUTH']);
         }
 
         if($where['USE_YN'] != NULL){
