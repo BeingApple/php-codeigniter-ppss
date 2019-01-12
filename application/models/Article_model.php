@@ -99,6 +99,32 @@ class Article_model extends CI_Model{
         return $query->row();
     }
 
+    public function articleAuthorListCount($adminSeq){
+        $query = $this->db->get_where('TBL_ARTICLE', array('ADMIN_SEQ' => $adminSeq, 'DEL_YN' => 'N', 'VIEW_YN' => 'Y', 'AUTH_YN' => 'Y'));
+
+        return $query->num_rows();
+    }
+
+    public function articleAuthorList($adminSeq, $limit, $offset){
+        $this->db->order_by('REG_DATE', 'DESC');
+        $query = $this->db->get_where('TBL_ARTICLE', array('ADMIN_SEQ' => $adminSeq, 'DEL_YN' => 'N', 'VIEW_YN' => 'Y', 'AUTH_YN' => 'Y'), $limit, $offset);
+
+        return $query->result();
+    }
+
+    public function articleFrontListCount(){
+        $query = $this->db->get_where('TBL_ARTICLE', array('DEL_YN' => 'N', 'VIEW_YN' => 'Y', 'AUTH_YN' => 'Y'));
+
+        return $query->num_rows();
+    }
+
+    public function articleFrontList($limit, $offset){
+        $this->db->order_by('REG_DATE', 'DESC');
+        $query = $this->db->get_where('TBL_ARTICLE', array('DEL_YN' => 'N', 'VIEW_YN' => 'Y', 'AUTH_YN' => 'Y'), $limit, $offset);
+        
+        return $query->result();
+    }
+
     public function articleFrontData($idx){
         $query = $this->db->get_where('TBL_ARTICLE', array('ARTICLE_SEQ' => $idx, 'DEL_YN' => 'N', 'VIEW_YN' => 'Y', 'AUTH_YN' => 'Y'));
 

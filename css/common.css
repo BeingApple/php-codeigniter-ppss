@@ -163,7 +163,7 @@ main{
 	float:left;
 	width:630px;
 }
-.container{ *zoom: 1; float:left; }
+.container{ *zoom: 1; float:left; width: 100%; }
 
 .content_wrap:after{content:" "; display:block; clear: both;}
 .container:after{content:" "; display:block; clear: both;}
@@ -197,7 +197,7 @@ main{
 	margin: 40px 0;
 }
 
-.pagination li{ display: inline; }
+.pagination li{ display: inline; margin-left: 5px; }
 .pagination li a {
     background-color: #222;
     color: #fff;

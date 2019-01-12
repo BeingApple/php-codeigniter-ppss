@@ -121,5 +121,12 @@ class Util{
             echo "</head><body></body></html>";
         exit ();
     }
+
+    function stripTags($text){
+        $text = strip_tags($text);
+        $text = preg_replace('/<iframe.*?\/iframe>/i','', $text);
+
+        return trim($text);
+    }
 }
 ?>

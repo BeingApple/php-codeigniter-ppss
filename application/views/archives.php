@@ -6,9 +6,9 @@
         <h1 class="article-title"><?php echo $articleData->ARTICLE_TITLE; ?></h1>
         <p class="article-meta"> 
             <time class="time" itemprop="datePublished" datetime="<?php echo $articleData->REG_DATE; ?>">
-                <?php echo date("Y년 n월 j일", strtotime($articleData->REG_DATE)) ?>
+                <?php echo date("Y년 n월 j일", strtotime($articleData->REG_DATE)); ?>
             </time>
-            by <span class="article-author"><a href="#" class="article-author-link" rel="author"><?php echo $articleData->ADMIN_NAME; ?></a></span> 
+            by <span class="article-author"><a href="/archives/author/<?php echo $articleData->ADMIN_SEQ; ?>" class="article-author-link" rel="author"><?php echo $articleData->ADMIN_NAME; ?></a></span> 
         </p>
     </header>
     <div class="fb-like" data-href="https://ppss.kr/archives/183100" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="true" style="margin-bottom:20px"></div>

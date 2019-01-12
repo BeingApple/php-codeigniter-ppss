@@ -50,6 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'main';
+
 $route['archives/(:num)'] = 'archives/view/$1';
+$route['archives/page/(:num)'] = 'archives/author/0/$1';
+$route['archives/author/(:num)/page/(:num)'] = 'archives/author/$1/$2';
+
+$route['archives/page'] = 'archives/author/0/1';
+$route['archives/author/(:num)/page'] = 'archives/author/$1/1';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
