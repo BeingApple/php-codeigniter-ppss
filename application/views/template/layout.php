@@ -27,7 +27,7 @@
 		<header>
 			<div class="wrap">
 				<div class="title">
-					<a href="#"><img src="/images/title.png" alt="ㅍㅍㅅㅅ 타이틀"></a>
+					<a href="/"><img src="/images/title.png" alt="ㅍㅍㅅㅅ 타이틀"></a>
 				</div>
 			</div>
 		</header>

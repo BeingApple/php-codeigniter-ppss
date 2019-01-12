@@ -27,7 +27,7 @@
 
 <!-- author box -->
 <section class="article-author-box">
-    <img src="/uploads/ppss/admin/<?php echo $writerData->ADMIN_FILE_NAME; ?>" class="author-img" alt="저자 이미지" />
+    <img src="/uploads/ppss/admin/<?php echo $writerData->ADMIN_FILE_NAME; ?>" width="70" height="70" class="author-img" alt="저자 이미지" />
     <h4 class="author-box-title">필자 
         <a href="/archives/author/<?php echo $writerData->ADMIN_SEQ; ?>"><strong><?php echo $writerData->ADMIN_NAME; ?></strong></a> 
         <?php if($writerData->ADMIN_BLOG != NULL && $writerData->ADMIN_BLOG != ""){ ?>

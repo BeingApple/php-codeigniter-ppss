@@ -20,7 +20,7 @@
                     <time class="time" itemprop="datePublished" datetime="<?php echo $data->REG_DATE; ?>">
 						<?php echo date("Y년 n월 j일", strtotime($data->REG_DATE)); ?>
 					</time>
-                    by <span class="article-author"><a href="#" class="article-author-link" rel="author"><?php echo $data->ADMIN_NAME; ?></a></span> 
+                    by <span class="article-author"><a href="<?php echo ($header == "전체글")?"/archives/author/$data->ADMIN_SEQ":"#"; ?>" class="article-author-link" rel="author"><?php echo $data->ADMIN_NAME; ?></a></span> 
                 </p>
             </header>
 
