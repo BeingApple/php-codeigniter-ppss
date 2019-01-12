@@ -56,6 +56,7 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
+                <th><input type="checkbox" id="checkAll" /></th>
                 <th>#</th>
                 <th>제목</th>
                 <th>필자</th>
@@ -71,13 +72,14 @@
                 if(count($articleList)<1){
             ?>
                     <tr>
-                        <td colspan="8">결과가 존재하지 않습니다.</td>
+                        <td colspan="9">결과가 존재하지 않습니다.</td>
                     </tr>
             <?php
                 }else{
                     foreach($articleList as $index => $data){
             ?>
                         <tr>
+                            <td><input type="checkbox" name="articleSeq" value="<?php echo $data->ARTICLE_SEQ; ?>" /></td>
                             <td><?php echo $offset + ($index + 1); ?></td>
                             <td><a href="/admin/articleWrite/<?php echo $data->ARTICLE_SEQ; ?>"><?php echo $data->ARTICLE_TITLE; ?></a></td>
                             <td><?php echo $data->ADMIN_NAME; ?></td>
@@ -107,3 +109,15 @@
 <div class="btn-group flright" role="group">
     <a class="btn btn-primary btn-sm" href="/admin/articleWrite" role="button">등록</a>
 </div>
+
+<script>
+$(document).ready(function(){
+    $("#checkAll").on("change", function(){
+        var checked = $(this).is(":checked");
+
+        $("input[name=articleSeq]").each(function(){
+            $(this).prop("checked", checked);
+        });
+    });
+});
+</script>
