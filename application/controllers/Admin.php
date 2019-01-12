@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
     public $SUPER_ADMIN = array("adminList", "adminWrite");
+    public $POSITION = "";
 
 	function __construct(){
         parent::__construct();
@@ -93,6 +94,8 @@ class Admin extends CI_Controller {
         $data = array();
         $where = array();
 
+        $this->POSITION = "admin";
+
         //검색
         $where['ADMIN_NAME'] = $this->input->get('adminName', true);
         $where['ADMIN_ID'] = $this->input->get('adminId', true);
@@ -126,6 +129,8 @@ class Admin extends CI_Controller {
 
     public function adminWrite($adminSeq = 0){
         $data = array();
+
+        $this->POSITION = "admin";
 
         $data["userData"] = $this->admin_model;
 
@@ -275,6 +280,9 @@ class Admin extends CI_Controller {
 
     public function myProfile(){
         $data = array();
+
+        $this->POSITION = "profile";
+
         $data["userData"] = $this->admin_model;
 
         $adminData =  $this->session->userdata('adminData');
@@ -370,6 +378,8 @@ class Admin extends CI_Controller {
         $data = array();
         $where = array();
 
+        $this->POSITION = "article";
+
         $adminData =  $this->session->userdata('adminData');
 
         //조건
@@ -413,6 +423,8 @@ class Admin extends CI_Controller {
 
     public function articleWrite($articleSeq = 0){
         $data = array();
+
+        $this->POSITION = "article";
 
         $data["articleData"] = $this->article_model;
 

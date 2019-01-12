@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link active" href="/admin/adminList">
+                <a class="nav-link <?php echo ($position == "admin")?"active":""; ?>" href="/admin/adminList">
                     <span data-feather="users"></span>
                     관리자 / 필자
                     <span class="sr-only">(current)</span>
@@ -28,13 +28,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/articleList">
+                <a class="nav-link <?php echo ($position == "article")?"active":""; ?>" href="/admin/articleList">
                     <span data-feather="file-text"></span>
                     기사 관리
                 </a>
             </li>
         </ul>
 
-        <a class="btn btn-dark" href="/admin/logout" >로그아웃</a>
+        <a class="btn btn-dark" href="/admin/logout" ><?php echo $adminData->ADMIN_NAME; ?> 로그아웃</a>
     </div>
 </nav>

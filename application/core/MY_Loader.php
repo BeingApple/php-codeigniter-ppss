@@ -41,6 +41,8 @@
 			$param['template_name'] = $template_name;
 
 			$vars['adminData'] = $adminData;
+			$vars['position'] = (isset($CI->POSITION))?$CI->POSITION:NULL;
+
 			$param['vars'] = $vars;
 
 			$this->view('admin/template/layout', $param);
