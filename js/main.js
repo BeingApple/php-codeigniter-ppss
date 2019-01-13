@@ -16,6 +16,9 @@ $(document).ready(function(){
 
 			if(scrollTop > 240){
 				$("#banner-left").css({"-webkit-transform":"translate(0px,"+(scrollTop-240) +"px)"});
+				$("#banner-left").css({"-moz-transform":"translate(0px,"+(scrollTop-240) +"px)"});
+				$("#banner-left").css({"-o-transform":"translate(0px,"+(scrollTop-240) +"px)"});
+				$("#banner-left").css({"transform":"translate(0px,"+(scrollTop-240) +"px)"});
 			}
 	});
 
