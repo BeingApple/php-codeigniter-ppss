@@ -34,10 +34,11 @@
 			}
 		?>
 	</section>
-
-	<!-- pagination -->
-	<section class="pagination">
-		<a href="/archives/page/2" >전체글 더 보기</a>
-	</section>
-	<!-- pagination end -->
+	<?php if(count($articleList) > 10){ ?>
+		<!-- pagination -->
+		<section class="pagination">
+			<a href="/archives/page/2" >전체글 더 보기</a>
+		</section>
+		<!-- pagination end -->
+	<?php } ?>
 </main>

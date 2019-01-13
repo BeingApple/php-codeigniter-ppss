@@ -94,14 +94,16 @@
             </div>
         </div>
     </fieldset >
-
-    <div class="form-group row">
-        <label for="articleTitle" class="col-sm-2 col-form-label" >승인</label>
-        <div class="col-sm-10">
-            <input type="text" value="<?php echo ($articleData->AUTH_YN == "Y")?"승인":"승인 안 됨"; ?>" class="form-control" disabled>
-            <div class="invalid-feedback"></div>
+    
+    <?php if($articleData->ARTICLE_SEQ > 0){ ?>
+        <div class="form-group row">
+            <label for="articleTitle" class="col-sm-2 col-form-label" >승인</label>
+            <div class="col-sm-10">
+                <input type="text" value="<?php echo ($articleData->AUTH_YN == "Y")?"승인":"승인 안 됨"; ?>" class="form-control" disabled>
+                <div class="invalid-feedback"></div>
+            </div>
         </div>
-    </div>
+    <?php } ?>
 
     <div class="d-flex bd-highlight mb-3">                    
         <?php if($adminData->ADMIN_GRADE == "S"){ ?>
