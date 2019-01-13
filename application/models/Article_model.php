@@ -145,5 +145,10 @@ class Article_model extends CI_Model{
         $this->db->where_in('ARTICLE_SEQ', $where_in); 
         return $this->db->update("TBL_ARTICLE", $data);
     }
+
+    public function articleAuth($data, $where_in){
+        $this->db->where_in('ARTICLE_SEQ', $where_in); 
+        return $this->db->update("TBL_ARTICLE", $data);
+    }
 }
 ?>

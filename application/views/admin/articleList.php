@@ -108,10 +108,12 @@
 </div>
 
 <div class="d-flex bd-highlight mb-3">
-    <div class="btn-group p-2 bd-highlight" role="group">
-        <button class="btn btn-primary">승인</button>
-        <button class="btn btn-secondary">미승인</button>
-    </div>
+    <?php if($adminData->ADMIN_GRADE == "S"){ ?>
+        <div class="btn-group p-2 bd-highlight" role="group">
+            <button class="btn btn-primary" id="authBtn">승인</button>
+            <button class="btn btn-secondary" id="unauthBtn">미승인</button>
+        </div>
+    <?php } ?>
     <div class="btn-group p-2 bd-highlight" role="group">
         <button class="btn btn-danger" id="btnDelete">삭제</button>
     </div>
@@ -133,7 +135,53 @@ $(document).ready(function(){
     $("#btnDelete").on("click", function(){
         articleDelete();
     });
+
+    <?php if($adminData->ADMIN_GRADE == "S"){ ?>
+        $("#authBtn").on("click", function(){
+            articleAuth("Y");
+        });
+
+        $("#unauthBtn").on("click", function(){
+            articleAuth("N");
+        });
+    <?php } ?>
 });
+
+<?php if($adminData->ADMIN_GRADE == "S"){ ?>
+    function articleAuth(auth){
+        var checked = $("input[name=articleSeq]:checked");
+
+        if(checked.length > 0){
+            var text = (auth == "Y")? "승인" : "승인 취소";
+
+            if(confirm(text+" 하시겠습니까?")){
+                var checkboxValues = [];
+                $("input[name=articleSeq]:checked").each(function(index){
+                    checkboxValues.push($(this).val());
+                });
+
+                var allData = { "articleSeqs": checkboxValues, "authYn": auth };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/articleAuth",
+                    data: allData,
+                    success: function (data) {
+                        if(data == "TRUE"){
+                            alert(text+" 되었습니다.");
+                        }else{
+                            alert("잘못된 접근입니다.");
+                        }
+
+                        location.reload();
+                    }
+                });
+            }
+        }else{
+            alert("선택 된 항목이 없습니다.");
+        }
+    }
+<?php } ?>
 
 function articleDelete(){
     var checked = $("input[name=articleSeq]:checked");

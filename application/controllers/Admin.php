@@ -491,6 +491,27 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function articleAuth(){
+        $articleSeqs = $this->input->post("articleSeqs", TRUE);
+        $authYn = $this->input->post("authYn", TRUE);
+
+        $adminData =  $this->session->userdata('adminData');
+
+        if(($articleSeqs != NULL && count($articleSeqs) > 0) && $authYn != NULL ){
+            if($adminData->ADMIN_GRADE == "S"){
+                $data = array("AUTH_YN" => $authYn);
+                
+                $this->article_model->articleAuth($data, $articleSeqs);
+
+                echo "TRUE";
+            }else{
+                echo "FALSE";
+            }
+        }else{
+            echo "FALSE";
+        }
+    }
+
     public function articleWriteProc(){
         $data = array();
 
