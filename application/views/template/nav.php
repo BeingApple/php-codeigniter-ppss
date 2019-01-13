@@ -60,12 +60,45 @@
             <li class="menu-btn"><a href="#"><span>MENU</span></a>
                 <ul>
                     <li class="mobile-menu-item <?php echo ($template_name == "main")?"current-menu":""; ?>"><a href="/"><span>Home</span></a></li>
-                    <li class="mobile-menu-item"><a href="#"><span>비즈니스</span></a></li>
-                    <li class="mobile-menu-item"><a href="#"><span>시사</span></a></li>
-                    <li class="mobile-menu-item"><a href="#"><span>문화</span></a></li>
-                    <li class="mobile-menu-item"><a href="#"><span>테크</span></a></li>
-                    <li class="mobile-menu-item"><a href="#"><span>생활</span></a></li>
-                    <li class="mobile-menu-item"><a href="#"><span>특집</span></a></li>
+                    <?php
+                        if(count($categoryList) > 0){
+                            $categoryLevel = 1;
+
+                            $openTag = FALSE;
+
+                            foreach($categoryList as $index => $data){
+                                if($data->CATEGORY_LEVEL != $categoryLevel){
+                                    if($openTag){
+                                        echo "</ul></li>";
+                                        $openTag = FALSE;
+                                    }
+
+                                    if($data->CATEGORY_LEVEL > 1){
+                    ?>
+                                    <a href="#" class="sub-menu-btn"><span>▼</span></a>
+                    <?php
+                                        echo "<ul>";
+                                        $openTag = TRUE;
+                                    }
+                                } 
+                    ?>
+                                <li class="mobile-menu-item <?php echo (isset($category) && $category == $data->CATEGORY_NAME)?"current-menu":""; ?>">
+                                    <a href="/archives/category/<?php echo $data->CATEGORY_SLUG; ?>"><span><?php echo $data->CATEGORY_NAME; ?></span></a>
+                                
+                    <?php
+                                if($openTag){
+                                    echo "</li>";
+                                }
+
+                                $categoryLevel = $data->CATEGORY_LEVEL;
+                            }
+                            if($openTag){
+                                echo "</ul></li>";
+                            }else{
+                                echo "</li>";
+                            }
+                        }
+                    ?>
                     <li class="mobile-menu-item <?php echo ($template_name == "author" && (isset($header) && $header == "전체글"))?"current-menu":""; ?>"><a href="/archives"><span>전체글</span></a></li>
                 </ul>
             </li>

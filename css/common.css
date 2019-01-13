@@ -283,11 +283,12 @@ nav > .mobile-search-box{ display: none; padding: 10px 3%; }
 		margin: 0px;
 	}
 
-	.mobile-menu-item{ width: 100%; }
+	.mobile-menu-item{ width: 100%; text-align: left; }
+	.mobile-menu-item ul{ display: none; }
 	.mobile-menu-item > a {
 		color: #222;
-		display: block;
-		padding: 15px 0;
+		display: inline-block;
+		padding: 15px 20px;
 		position: relative;
 	}
 
@@ -295,6 +296,8 @@ nav > .mobile-search-box{ display: none; padding: 10px 3%; }
 	.mobile-menu-item a:hover{
 		color: #e8554e !important;
 	}
+	.mobile-menu-item .sub-menu-btn{ float: right; }
+	.mobile-menu-item ul a{ padding: 15px 40px; }
 
 	nav > .mobile-search-box{ display: block; }
 	/* mobile menu end */
