@@ -39,7 +39,7 @@
     </div>
 
     <div class="form-group row">
-        <label for="adminPassword" class="col-sm-2 col-form-label" >이름</label>
+        <label for="adminName" class="col-sm-2 col-form-label" >이름</label>
         <div class="col-sm-10">
             <input type="text" id="adminName" name="adminName" value="<?php echo $userData->ADMIN_NAME; ?>" class="form-control" placeholder="이름" aria-label="이름">
             <div class="invalid-feedback"></div>

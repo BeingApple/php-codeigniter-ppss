@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
-    public $SUPER_ADMIN = array("adminList", "adminWrite");
+    public $SUPER_ADMIN = array("adminList", "adminWrite", "adminWriteProc", "category", "categoryProc", "categoryDelete");
     public $POSITION = "";
 
 	function __construct(){
@@ -15,6 +15,7 @@ class Admin extends CI_Controller {
 
         $this->load->model('admin_model');
         $this->load->model('article_model');
+        $this->load->model('category_model');
 
         $this->config->load('pagination', TRUE);
 	}
@@ -615,6 +616,120 @@ class Admin extends CI_Controller {
         redirect(base_url("/admin/articleList"));
     }
 
+    public function category($idx = 0){
+        $data = array();
+
+        $this->POSITION = "category";
+
+        $data["parentList"] = $this->category_model->categoryParentList();
+        $data["categoryList"] = $this->category_model->categoryList();
+        $data["categoryData"] = $this->category_model;
+
+        if($idx > 0){
+            $data["categoryData"] =$this->category_model->categoryData($idx);
+        }
+
+        if(count($data["categoryList"]) > 0){
+			foreach($data["categoryList"] as $index => $categoryData){
+                $prefix = "";
+                $level = $categoryData->CATEGORY_LEVEL;
+
+                for($i = 1 ; $i < $level ; $i++){
+                    $prefix .= "└";
+                }
+
+                $categoryData->CATEGORY_NAME = $prefix.$categoryData->CATEGORY_NAME;
+                
+				$data["categoryList"][$index] = $categoryData;
+			}
+		}
+
+        $this->load->admin('admin/category', $data);
+    }
+
+    public function categoryProc(){
+        $data = array();
+
+        $mode = $this->input->post("mode", TRUE);
+
+        $queryResult = 0;
+        
+        if($mode == "write"){
+            $slug = $this->input->post("categorySlug", TRUE);
+
+            $count = $this->category_model->slugCheck($slug);
+
+            if($count == 0){
+                $parentSeq = $this->input->post("parentSeq", TRUE);
+                
+                if($parentSeq > 0){
+                    $data["PARENT_SEQ"] = $parentSeq;
+                }
+                
+                $data["CATEGORY_LEVEL"] = $this->input->post("categoryLevel", TRUE);
+                $data["CATEGORY_NAME"] = $this->input->post("categoryName", TRUE);
+                $data["CATEGORY_SLUG"] = $this->input->post("categorySlug", TRUE);
+                $data["CATEGORY_DESC"] = $this->input->post("categoryDesc", TRUE);
+                $data["VIEW_YN"] = $this->input->post("viewYn", TRUE);
+
+                
+                $queryResult = $this->category_model->categoryInsert($data);
+            }else{
+                $this->util->alert("중복된 슬러그입니다.", "/admin/category");
+            }
+        }else if($mode == "modify"){
+            $seq = $this->input->post("categorySeq", TRUE);
+            $slug = $this->input->post("categorySlug", TRUE);
+            $beforeData = $this->category_model->categoryData($seq);
+
+            $count = $this->category_model->slugCheck($slug);
+
+            if($count == 0 || ($beforeData->CATEGORY_SLUG == $slug)){
+                if($seq > 0){
+                    $parentSeq = $this->input->post("parentSeq", TRUE);
+                    if($parentSeq > 0){
+                        $data["PARENT_SEQ"] = $parentSeq;
+                    }
+
+                    $data["CATEGORY_LEVEL"] = $this->input->post("categoryLevel", TRUE);
+                    $data["CATEGORY_NAME"] = $this->input->post("categoryName", TRUE);
+                    $data["CATEGORY_SLUG"] = $this->input->post("categorySlug", TRUE);
+                    $data["CATEGORY_DESC"] = $this->input->post("categoryDesc", TRUE);
+                    $data["VIEW_YN"] = $this->input->post("viewYn", TRUE);
+
+                    $where = array();
+                    $where['CATEGORY_SEQ'] = $seq;
+
+                    $queryResult = $this->category_model->categoryUpdate($data, $where);
+                }else{
+                    $this->util->alert("잘못된 접근입니다.", "/admin/category");
+                }
+            }else{
+                $this->util->alert("중복된 슬러그입니다.", "/admin/category");
+            }
+        }
+
+        if($queryResult == 1){
+            $this->util->alert("입력 됐습니다.", "/admin/category");
+        }else{
+            $this->util->alert("입력에 실패했습니다. 관리자에게 문의해주시기 바랍니다.", "/admin/category");
+        }
+
+        redirect(base_url("/admin/category"));
+    }
+
+    public function categoryDelete(){
+        $categorySeqs = $this->input->post("categorySeqs", TRUE);
+
+        if($categorySeqs != NULL && count($categorySeqs) > 0){
+            $this->category_model->categoryDelete($categorySeqs);
+
+            echo "TRUE";
+        }else{
+            echo "FALSE";
+        }
+    }
+
     public function idCheck(){
         $id = $this->input->post("adminId", TRUE);
 
@@ -632,8 +747,6 @@ class Admin extends CI_Controller {
         }
 
     }
-
-
 
     private function _loginCheck(){
         $adminData =  $this->session->userdata('adminData');

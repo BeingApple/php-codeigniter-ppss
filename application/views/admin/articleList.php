@@ -189,7 +189,7 @@ function articleDelete(){
     if(checked.length > 0){
         if(confirm("삭제하시겠습니까?")){
             var checkboxValues = [];
-            $("input[name=articleSeq]:checked").each(function(index){
+            checked.each(function(index){
                 checkboxValues.push($(this).val());
             });
 

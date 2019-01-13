@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link <?php echo ($position == "category")?"active":""; ?>" href="/admin/category">
                     <span data-feather="menu"></span>
                     카테고리 관리
                 </a>
