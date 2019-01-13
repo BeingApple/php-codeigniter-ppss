@@ -81,11 +81,28 @@
         </div>
     </fieldset >
 
-    <div class="btn-group" role="group">
-        <button type="button" id="submitBtn" class="btn btn-primary"><?php echo ($articleData->ADMIN_SEQ > 0)?"수정":"등록"; ?></button>
+    <div class="form-group row">
+        <label for="articleTitle" class="col-sm-2 col-form-label" >승인</label>
+        <div class="col-sm-10">
+            <input type="text" value="<?php echo ($articleData->AUTH_YN == "Y")?"승인":"승인 안 됨"; ?>" class="form-control" disabled>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+
+    <div class="d-flex bd-highlight mb-3">                    
         <?php if($adminData->ADMIN_GRADE == "S"){ ?>
-            <button type="button" id="cancelBtn" class="btn btn-primary">목록</button>
+            <div class="btn-group p-2 bd-highlight" role="group">
+                <a class="btn btn-primary" id="authBtn">승인</a>
+                <a class="btn btn-secondary" id="unauthBtn">미승인</a>
+            </div>
         <?php } ?>
+        <div class="btn-group p-2 bd-highlight" role="group">
+            <a class="btn btn-danger" id="btnDelete">삭제</a>
+        </div>
+        <div class="btn-group ml-auto p-2 bd-highlight" role="group">
+            <button type="button" id="submitBtn" class="btn btn-primary"><?php echo ($articleData->ADMIN_SEQ > 0)?"수정":"등록"; ?></button>
+            <button type="button" id="cancelBtn" class="btn btn-primary">목록</button>
+        </div>
     </div>
 </form>
 
@@ -140,6 +157,14 @@
             $(this).next('.custom-file-label').html(fileName);
         });
 
+        $("#articleTitle").on("change", function(){
+            $("#articleTitle").removeClass("is-invalid");
+        })
+
+        $("#articleCategory").on("change", function(){
+            $("#articleCategory").removeClass("is-invalid");
+        })
+
         $("#submitBtn").on("click", function(){
             formSubmit();
         });
@@ -150,12 +175,19 @@
             }
         });
 
-        $("#articleTitle").on("change", function(){
-            $("#articleTitle").removeClass("is-invalid");
-        })
-        $("#articleCategory").on("change", function(){
-            $("#articleCategory").removeClass("is-invalid");
-        })
+        $("#btnDelete").on("click", function(){
+            articleDelete();
+        });
+
+        <?php if($adminData->ADMIN_GRADE == "S"){ ?>
+            $("#authBtn").on("click", function(){
+                articleAuth("Y");
+            });
+
+            $("#unauthBtn").on("click", function(){
+                articleAuth("N");
+            });
+        <?php } ?>
     });
 
     function formSubmit(){
@@ -179,5 +211,53 @@
         }
 
         $("#dataForm").submit();
+    }
+
+    <?php if($adminData->ADMIN_GRADE == "S"){ ?>
+        function articleAuth(auth){
+            var text = (auth == "Y")? "승인" : "승인 취소";
+
+            if(confirm(text+" 하시겠습니까?")){
+                var checkboxValues = [<?php echo $articleData->ARTICLE_SEQ; ?>];
+                var allData = { "articleSeqs": checkboxValues, "authYn": auth };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/articleAuth",
+                    data: allData,
+                    success: function (data) {
+                        if(data == "TRUE"){
+                            alert(text+" 되었습니다.");
+                        }else{
+                            alert("잘못된 접근입니다.");
+                        }
+
+                        location.reload();
+                    }
+                });
+            }
+        }
+    <?php } ?>
+
+    function articleDelete(){
+        if(confirm("삭제하시겠습니까?")){
+            var checkboxValues = [<?php echo $articleData->ARTICLE_SEQ; ?>];
+            var allData = { "articleSeqs": checkboxValues };
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/articleDelete",
+                data: allData,
+                success: function (data) {
+                    if(data == "TRUE"){
+                        alert("삭제 되었습니다.");
+                    }else{
+                        alert("잘못된 접근입니다.");
+                    }
+
+                    location.href = "/admin/articleList";
+                }
+            });
+        }
     }
 </script>
