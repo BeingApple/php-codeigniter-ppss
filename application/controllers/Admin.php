@@ -460,6 +460,37 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function articleDelete(){
+        $articleSeqs = $this->input->post("articleSeqs", TRUE);
+        $adminData =  $this->session->userdata('adminData');
+
+        if($articleSeqs != NULL && count($articleSeqs) > 0){
+            if($adminData->ADMIN_GRADE == "S"){
+                //슈퍼 관리자
+                $this->article_model->articleDelete($articleSeqs);
+
+                echo "TRUE";
+            }else{
+                //일반 필자는 본인의 글인지 확인 함
+                foreach($articleSeqs as $index => $articleSeq){
+                    $articleData = $this->article_model->articleData($articleSeq);
+
+                    if($articleData == NULL || ($articleData->ADMIN_SEQ != $adminData->ADMIN_SEQ)){
+                        echo "FALSE";
+
+                        break;
+                    }else{
+                        $this->article_model->articleDelete($articleSeq);
+                    }
+                }
+
+                echo "TRUE";
+            }
+        }else{
+            echo "FALSE";
+        }
+    }
+
     public function articleWriteProc(){
         $data = array();
 

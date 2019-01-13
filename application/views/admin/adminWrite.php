@@ -159,10 +159,10 @@
         </div>
     </div>
 
-    <div class="btn-group flright" role="group">
-        <button type="button" id="submitBtn" class="btn btn-primary btn-sm"><?php echo ($userData->ADMIN_SEQ > 0)?"수정":"등록"; ?></button>
+    <div class="btn-group" role="group">
+        <button type="button" id="submitBtn" class="btn btn-primary"><?php echo ($userData->ADMIN_SEQ > 0)?"수정":"등록"; ?></button>
         <?php if($adminData->ADMIN_GRADE == "S"){ ?>
-            <button type="button" id="cancelBtn" class="btn btn-primary btn-sm">목록</button>
+            <button type="button" id="cancelBtn" class="btn btn-primary">목록</button>
         <?php } ?>
     </div>
 </form>

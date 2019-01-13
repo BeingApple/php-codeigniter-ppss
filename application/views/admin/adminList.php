@@ -113,6 +113,6 @@
     </table>
     <?php echo $pagination; ?>
 </div>
-<div class="btn-group flright" role="group">
-    <a class="btn btn-primary btn-sm" href="/admin/adminWrite" role="button">등록</a>
+<div class="btn-group" role="group">
+    <a class="btn btn-primary" href="/admin/adminWrite" role="button">등록</a>
 </div>

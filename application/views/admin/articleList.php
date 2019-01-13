@@ -106,8 +106,18 @@
     </table>
     <?php echo $pagination; ?>
 </div>
-<div class="btn-group flright" role="group">
-    <a class="btn btn-primary btn-sm" href="/admin/articleWrite" role="button">등록</a>
+
+<div class="d-flex bd-highlight mb-3">
+    <div class="btn-group p-2 bd-highlight" role="group">
+        <button class="btn btn-primary">승인</button>
+        <button class="btn btn-secondary">미승인</button>
+    </div>
+    <div class="btn-group p-2 bd-highlight" role="group">
+        <button class="btn btn-danger" id="btnDelete">삭제</button>
+    </div>
+    <div class="btn-group ml-auto p-2 bd-highlight" role="group">
+        <a class="btn btn-primary" href="/admin/articleWrite" role="button">등록</a>
+    </div>
 </div>
 
 <script>
@@ -119,5 +129,41 @@ $(document).ready(function(){
             $(this).prop("checked", checked);
         });
     });
+
+    $("#btnDelete").on("click", function(){
+        articleDelete();
+    });
 });
+
+function articleDelete(){
+    var checked = $("input[name=articleSeq]:checked");
+
+    if(checked.length > 0){
+        if(confirm("삭제하시겠습니까?")){
+            var checkboxValues = [];
+            $("input[name=articleSeq]:checked").each(function(index){
+                checkboxValues.push($(this).val());
+            });
+
+            var allData = { "articleSeqs": checkboxValues };
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/articleDelete",
+                data: allData,
+                success: function (data) {
+                    if(data == "TRUE"){
+                        alert("삭제 되었습니다.");
+                    }else{
+                        alert("잘못된 접근입니다.");
+                    }
+
+                    location.reload();
+                }
+            });
+        }
+    }else{
+        alert("선택 된 항목이 없습니다.");
+    }
+}
 </script>
