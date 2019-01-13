@@ -38,7 +38,7 @@
 		<!-- nav end -->
 
 		<!-- main -->
-		<main class="wrap">
+		<div class="wrap main-wrap">
 			<!-- 광고!!!!!!!!!!!!!!!!! -->
 			<div id="banner-left" class="wing-banner">
 				<iframe name="ifrad" width="160" height="600" id="ifrad" src="https://www.dreamsearch.or.kr/servlet/adBanner?from=&amp;u=2018010200010&amp;us=16451&amp;s=17230&amp;iwh=160_600&amp;igb=69&amp;cntsr=3" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
@@ -51,7 +51,7 @@
             <!-- aside -->
 			<?php $this->view($aside, $vars); ?>
             <!-- aside end -->
-		</main>
+		</div>
 		<!-- main end -->
 
 		<!-- footer -->

@@ -153,11 +153,12 @@ nav > .mobile-search-box{ display: none; padding: 10px 3%; }
 /* search box end */
 
 /* main */
-main{
+.main-wrap{
 	clear: both;
 	position: relative;
 	margin-top: 40px !important;
 }
+.main-wrap:after{content:''; display:block; clear:both;}
 .content_wrap{
 	*zoom: 1;
 	float:left;
