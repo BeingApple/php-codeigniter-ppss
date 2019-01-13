@@ -33,6 +33,7 @@
 .article-content ol, .article-content p, .article-content ul{ margin-bottom: 26px;}
 .article-content ol, .article-content ul { margin-left: 40px; }
 .article-content ul > li{ list-style-type: disc; }
+.article-content ol > li{ list-style-type: decimal; }
 
 .article-content a{ 
     color: #e8554e; 
