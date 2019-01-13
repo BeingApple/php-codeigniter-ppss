@@ -3,6 +3,7 @@
 </div>
 
 <form id="dataForm" method="POST" action="/admin/articleWriteProc" enctype="multipart/form-data"> 
+    <input type="hidden" id="articleCategory" name="articleCategory" value="<?php echo $articleData->ARTICLE_CATEGORY; ?>"/>
     <?php
         if($articleData->ARTICLE_SEQ > 0){
     ?>
@@ -23,14 +24,27 @@
             <div class="invalid-feedback"></div>
         </div>
     </div>
-
-    <div class="form-group row">
-    <label for="articleCategory" class="col-sm-2 col-form-label" >카테고리</label>
-        <div class="col-sm-10">
-            <input type="text" id="articleCategory" name="articleCategory" value="<?php echo $articleData->ARTICLE_CATEGORY; ?>" class="form-control" placeholder="카테고리" aria-label="카테고리">
-            <div class="invalid-feedback"></div>
+    
+    <fieldset  class="form-group">
+        <div class="row">
+            <legend class="col-form-label col-sm-2 pt-0">카테고리</legend>
+            <div class="col-sm-10">
+                <?php
+                    if(count($categoryList) > 0){
+                        foreach($categoryList as $index => $data){
+                ?>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="category" id="category<?php echo $index+1; ?>" value="<?php echo $data->CATEGORY_NAME; ?>">
+                            <label class="form-check-label" for="category<?php echo $index+1; ?>"><?php echo $data->CATEGORY_NAME; ?></label>
+                        </div>
+                <?php
+                        }
+                    }
+                ?>
+                <small id="categoryHelpBlock" style="color:#dc3545; display:none;" class="form-text">카테고리를 선택해주시기 바랍니다.</small>
+            </div>
         </div>
-    </div>
+    </fieldset>
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label" >대표 이미지</label>
@@ -92,12 +106,12 @@
     <div class="d-flex bd-highlight mb-3">                    
         <?php if($adminData->ADMIN_GRADE == "S"){ ?>
             <div class="btn-group p-2 bd-highlight" role="group">
-                <a class="btn btn-primary" id="authBtn">승인</a>
-                <a class="btn btn-secondary" id="unauthBtn">미승인</a>
+                <a href="#" class="btn btn-primary" id="authBtn">승인</a>
+                <a href="#" class="btn btn-secondary" id="unauthBtn">미승인</a>
             </div>
         <?php } ?>
         <div class="btn-group p-2 bd-highlight" role="group">
-            <a class="btn btn-danger" id="btnDelete">삭제</a>
+            <a href="#" class="btn btn-danger" id="btnDelete">삭제</a>
         </div>
         <div class="btn-group ml-auto p-2 bd-highlight" role="group">
             <button type="button" id="submitBtn" class="btn btn-primary"><?php echo ($articleData->ADMIN_SEQ > 0)?"수정":"등록"; ?></button>
@@ -161,9 +175,19 @@
             $("#articleTitle").removeClass("is-invalid");
         })
 
-        $("#articleCategory").on("change", function(){
-            $("#articleCategory").removeClass("is-invalid");
-        })
+        $("input[name=category]").on("change", function(){
+            var articleCategory = "";
+            $("input[name=category]:checked").each(function(index){
+                articleCategory += (index > 0)?",":"";
+                articleCategory += $(this).val();
+            });
+
+            $("#articleCategory").val(articleCategory);
+
+            if($("input[name=category]:checked").length > 0){
+                $("#categoryHelpBlock").hide();
+            }
+        });
 
         $("#submitBtn").on("click", function(){
             formSubmit();
@@ -188,6 +212,13 @@
                 articleAuth("N");
             });
         <?php } ?>
+
+        var categoryList = "<?php echo $articleData->ARTICLE_CATEGORY; ?>".split(",");
+        for(var i = 0 ; i < categoryList.length ; i++){
+            var category = categoryList[i];
+
+            $("input[name=category][value="+category+"]").prop("checked", true);
+        }
     });
 
     function formSubmit(){
@@ -203,9 +234,7 @@
         }
 
         if(articleCategory == "" || articleCategory == undefined){
-            $("#articleCategory").siblings(".invalid-feedback").html("카테고리를 입력해주시기 바랍니다.");
-            $("#articleCategory").removeClass("is-valid");
-            $("#articleCategory").addClass("is-invalid");
+            $("#categoryHelpBlock").show();
 
             return;
         }

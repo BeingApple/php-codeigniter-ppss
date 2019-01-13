@@ -27,8 +27,10 @@ class Category_model extends CI_Model{
         return $query->result();
     }
 
-    public function categoryParentList(){
-        $this->db->order_by('CATEGORY_NAME', 'ASC');
+    public function categoryFrontList(){
+        $this->db->order_by('PARENT_SEQ', 'ASC');
+        $this->db->order_by('CATEGORY_LEVEL', 'ASC');
+
         $query = $this->db->get_where('TBL_CATEGORY', array('DEL_YN' => 'N', 'VIEW_YN' => 'Y'));
 
         return $query->result();

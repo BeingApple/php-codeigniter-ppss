@@ -418,6 +418,7 @@ class Admin extends CI_Controller {
         $data['page'] = $page;
 
         $data['articleList'] = $this->article_model->articleList($where, $perPage, $offset);
+        $data["categoryList"] = $this->category_model->categoryList();
 
         $this->load->admin('admin/articleList', $data);
     }
@@ -428,6 +429,7 @@ class Admin extends CI_Controller {
         $this->POSITION = "article";
 
         $data["articleData"] = $this->article_model;
+        $data["categoryList"] = $this->category_model->categoryList();
 
         if($articleSeq > 0){
             $articleData = $this->article_model->articleData($articleSeq);
@@ -621,7 +623,7 @@ class Admin extends CI_Controller {
 
         $this->POSITION = "category";
 
-        $data["parentList"] = $this->category_model->categoryParentList();
+        $data["parentList"] = $this->category_model->categoryList();
         $data["categoryList"] = $this->category_model->categoryList();
         $data["categoryData"] = $this->category_model;
 

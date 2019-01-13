@@ -19,8 +19,15 @@
                 <label for="articleCategory">카테고리</label>
                 <select class="form-control" name="articleCategory" id="articleCategory">
                     <option value="">전체</option>
-                    <option value="경제" <?php echo ($search['ARTICLE_CATEGORY'] == "경제")?"selected":""; ?>>경제</option>
-                    <option value="사회" <?php echo ($search['ARTICLE_CATEGORY'] == "사회")?"selected":""; ?>>사회</option>
+                    <?php
+                        if(count($categoryList) > 0){
+                            foreach($categoryList as $index => $data){
+                    ?>
+                            <option value="<?php echo $data->CATEGORY_NAME; ?>" <?php echo ($search['ARTICLE_CATEGORY'] == $data->CATEGORY_NAME)?"selected":""; ?>><?php echo $data->CATEGORY_NAME; ?></option>
+                    <?php
+                            }
+                        }
+                    ?>
                 </select>
             </div>
             <div class="form-group col-md-6">
