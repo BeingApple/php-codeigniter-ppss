@@ -112,6 +112,28 @@ class Article_model extends CI_Model{
         return $query->result();
     }
 
+    public function articleCategoryListCount($category){
+        $this->db->like('ARTICLE_CATEGORY', $category, 'both');
+        $this->db->where("DEL_YN","N");
+        $this->db->where("VIEW_YN","Y");
+        $this->db->where("AUTH_YN","Y");
+
+        $query = $this->db->get('TBL_ARTICLE');
+
+        return $query->num_rows();
+    }
+
+    public function articleCategoryList($category, $limit, $offset){
+        $this->db->like('ARTICLE_CATEGORY', $category, 'both');
+        $this->db->where("DEL_YN","N");
+        $this->db->where("VIEW_YN","Y");
+        $this->db->where("AUTH_YN","Y");
+
+        $query = $this->db->get('TBL_ARTICLE', $limit, $offset);
+
+        return $query->result();
+    }
+
     public function articleFrontListCount(){
         $query = $this->db->get_where('TBL_ARTICLE', array('DEL_YN' => 'N', 'VIEW_YN' => 'Y', 'AUTH_YN' => 'Y'));
 

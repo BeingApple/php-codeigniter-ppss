@@ -12,6 +12,7 @@ class Archives extends CI_Controller {
 
         $this->load->model('article_model');
         $this->load->model('admin_model');
+        $this->load->model('category_model');
 
         $this->config->load('pagination_front', TRUE);
 	}
@@ -80,6 +81,59 @@ class Archives extends CI_Controller {
             }else{
                 $this->util->alert("잘못된 접근입니다.","/");
             }
+        }
+
+        //태그 제거
+        if(count($data["articleList"]) > 0){
+			foreach($data["articleList"] as $index => $articleData){
+                $articleData->ARTICLE_CONTENTS = substr($this->util->stripTags($articleData->ARTICLE_CONTENTS), 0, 501)."&nbsp;…";
+                
+				$data["articleList"][$index] = $articleData;
+			}
+		}
+
+        //페이징 생성
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+
+        $data['offset'] = $offset;
+        $data['page'] = $page;
+        
+        $data["title"] = $title;
+        $data["header"] = $header;
+
+        $this->load->template('author', $data);
+    }
+
+    public function category($category = "", $page = 1){
+        $data = array();
+        $title = " | ㅍㅍㅅㅅ";
+        $header = "";
+
+        //페이징 설정 초기화
+        $config = $this->config->config['pagination_front'];
+        $perPage = $config['per_page'];
+        $offset = $perPage * ($page - 1);
+
+        if($page > 1){
+            $title = " | 페이지 $page".$title;
+        }
+
+        //카테고리
+        //페이징 설정
+        $data["categoryData"] = $this->category_model->categoryDataBySlug($category);
+
+        if($data["categoryData"] != NULL){
+            $config['base_url'] = "/archives/category/$category/page";
+            $config['total_rows'] = $this->article_model->articleCategoryListCount($data["categoryData"]->CATEGORY_NAME);
+
+            $data['articleList'] = $this->article_model->articleCategoryList($data["categoryData"]->CATEGORY_NAME, $perPage, $offset);
+            $data["category"] = $data["categoryData"]->CATEGORY_NAME;
+
+            $title = $data["categoryData"]->CATEGORY_NAME.$title;
+            $header = $data["categoryData"]->CATEGORY_NAME;
+        }else{
+            $this->util->alert("잘못된 접근입니다.","/");
         }
 
         //태그 제거

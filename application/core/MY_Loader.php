@@ -5,6 +5,9 @@
 	}
 
      public function template($template_name, $vars = array(), $return = FALSE){
+		$CI =& get_instance();
+		$CI->load->model('category_model');
+
         $param = array();
 
 		$nav = isset($vars['nav']) ? $vars['nav'] : 'template/nav';
@@ -16,6 +19,9 @@
         $param['footer'] = $footer;
         
 		$param['template_name'] = $template_name;
+
+		$vars['categoryList'] = $CI->category_model->categoryFrontList();
+
 		$param['vars'] = $vars;
 
 		$this->view('template/layout', $param);

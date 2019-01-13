@@ -42,6 +42,12 @@ class Category_model extends CI_Model{
         return $query->row();
     }
 
+    public function categoryDataBySlug($slug){
+        $query = $this->db->get_where('TBL_CATEGORY', array('CATEGORY_SLUG' => $slug, 'DEL_YN' => 'N', 'VIEW_YN' => 'Y'));
+
+        return $query->row();
+    }
+
     public function categoryInsert($data){
         $result1 = $this->db->insert("TBL_CATEGORY", $data);
 

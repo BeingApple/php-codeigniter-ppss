@@ -2,24 +2,46 @@
     <div class="wrap">
         <ul class="menu">
             <li class="menu-item <?php echo ($template_name == "main")?"current-menu":""; ?>"><a href="/"><span>HOME</span></a></li>
-            <li class="menu-item"><a href="#"><span>비즈니스</span></a>
-                <ul>
-                    <li class="sub-menu-item"><a href="#"><span>드롭다운1</span></a></li>
-                    <li class="sub-menu-item"><a href="#"><span>드롭다운2</span></a></li>
-                    <li class="sub-menu-item"><a href="#"><span>드롭다운3</span></a></li>
-                </ul>
-            </li>
-            <li class="menu-item"><a href="#"><span>시사</span></a></li>
-            <li class="menu-item"><a href="#"><span>문화</span></a>
-                <ul>
-                    <li class="sub-menu-item"><a href="#"><span>드롭다운1</span></a></li>
-                    <li class="sub-menu-item"><a href="#"><span>드롭다운2</span></a></li>
-                    <li class="sub-menu-item"><a href="#"><span>드롭다운3</span></a></li>
-                </ul>
-            </li>
-            <li class="menu-item"><a href="#"><span>테크</span></a></li>
-            <li class="menu-item"><a href="#"><span>생활</span></a></li>
-            <li class="menu-item"><a href="#"><span>특집</span></a></li>
+            <?php
+                if(count($categoryList) > 0){
+                    $categoryLevel = 1;
+                    $class = "menu-item";
+                    $openTag = FALSE;
+
+                    foreach($categoryList as $index => $data){
+                        if($data->CATEGORY_LEVEL != $categoryLevel){
+                            if($openTag){
+                                echo "</ul></li>";
+                                $openTag = FALSE;
+    
+                                $class = "menu-item";
+                            }
+
+                            if($data->CATEGORY_LEVEL > 1){
+                                echo "<ul>";
+
+                                $class = "sub-menu-item";
+                                $openTag = TRUE;
+                            }
+                        } 
+            ?>
+                        <li class="<?php echo $class; ?> <?php echo (isset($category) && $category == $data->CATEGORY_NAME)?"current-menu":""; ?>">
+                            <a href="/archives/category/<?php echo $data->CATEGORY_SLUG; ?>"><span><?php echo $data->CATEGORY_NAME; ?></span></a>
+                        
+            <?php
+                        if($openTag){
+                            echo "</li>";
+                        }
+
+                        $categoryLevel = $data->CATEGORY_LEVEL;
+                    }
+                    if($openTag){
+                        echo "</ul></li>";
+                    }else{
+                        echo "</li>";
+                    }
+                }
+            ?>
             <li class="menu-item <?php echo ($template_name == "author" && (isset($header) && $header == "전체글"))?"current-menu":""; ?>"><a href="/archives"><span>전체글</span></a></li>
             <li class="menu-item search-box">
                 <form method="get" action="#">

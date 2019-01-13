@@ -15,12 +15,14 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
+            <!--
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span data-feather="user-plus"></span>
                     필자 신청 목록
                 </a>
             </li>
+            -->
             <li class="nav-item">
                 <a class="nav-link <?php echo ($position == "category")?"active":""; ?>" href="/admin/category">
                     <span data-feather="menu"></span>

@@ -52,11 +52,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'main';
 
 $route['archives/(:num)'] = 'archives/view/$1';
-$route['archives/page/(:num)'] = 'archives/author/0/$1';
-$route['archives/author/(:num)/page/(:num)'] = 'archives/author/$1/$2';
 
 $route['archives/page'] = 'archives/author/0/1';
+$route['archives/page/(:num)'] = 'archives/author/0/$1';
+
 $route['archives/author/(:num)/page'] = 'archives/author/$1/1';
+$route['archives/author/(:num)/page/(:num)'] = 'archives/author/$1/$2';
+
+$route['archives/category/(:any)/page'] = 'archives/category/$1/1';
+$route['archives/category/(:any)/page/(:num)'] = 'archives/category/$1/$2';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
