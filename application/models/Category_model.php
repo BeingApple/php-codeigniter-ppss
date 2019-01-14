@@ -48,6 +48,14 @@ class Category_model extends CI_Model{
         return $query->row();
     }
 
+    public function categoryDataByNames($list_name){
+        $this->db->where_in("CATEGORY_NAME", $list_name);
+        $this->db->where(array('DEL_YN' => 'N', 'VIEW_YN' => 'Y'));
+        $query = $this->db->get('TBL_CATEGORY');
+
+        return $query->result();
+    }
+
     public function categoryInsert($data){
         $result1 = $this->db->insert("TBL_CATEGORY", $data);
 

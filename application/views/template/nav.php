@@ -3,12 +3,12 @@
         <ul class="menu">
             <li class="menu-item <?php echo ($template_name == "main")?"current-menu":""; ?>"><a href="/"><span>HOME</span></a></li>
             <?php
-                if(count($categoryList) > 0){
+                if(count($menu) > 0){
                     $categoryLevel = 1;
                     $class = "menu-item";
                     $openTag = FALSE;
 
-                    foreach($categoryList as $index => $data){
+                    foreach($menu as $index => $data){
                         if($data->CATEGORY_LEVEL != $categoryLevel){
                             if($openTag){
                                 echo "</ul></li>";
@@ -61,12 +61,12 @@
                 <ul>
                     <li class="mobile-menu-item <?php echo ($template_name == "main")?"current-menu":""; ?>"><a href="/"><span>Home</span></a></li>
                     <?php
-                        if(count($categoryList) > 0){
+                        if(count($menu) > 0){
                             $categoryLevel = 1;
 
                             $openTag = FALSE;
 
-                            foreach($categoryList as $index => $data){
+                            foreach($menu as $index => $data){
                                 if($data->CATEGORY_LEVEL != $categoryLevel){
                                     if($openTag){
                                         echo "</ul></li>";

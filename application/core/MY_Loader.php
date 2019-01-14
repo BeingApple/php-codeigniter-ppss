@@ -20,7 +20,7 @@
         
 		$param['template_name'] = $template_name;
 
-		$vars['categoryList'] = $CI->category_model->categoryFrontList();
+		$vars['menu'] = $CI->category_model->categoryFrontList();
 
 		$param['vars'] = $vars;
 

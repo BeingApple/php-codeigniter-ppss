@@ -30,7 +30,9 @@ class Archives extends CI_Controller {
 
             if($data["articleData"] != NULL){
                 $data["title"] = $data["articleData"]->ARTICLE_TITLE;
+                $category = explode (",", $data["articleData"]->ARTICLE_CATEGORY);
 
+                $data["categoryList"] = $this->category_model->categoryDataByNames($category);
                 $data["writerData"] = $this->admin_model->adminFrontData($data["articleData"]->ADMIN_SEQ);
 
                 $this->load->template('archives', $data);

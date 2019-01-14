@@ -18,11 +18,26 @@
             <?php echo $articleData->ARTICLE_CONTENTS; ?>
         </div>
 
-        <footer class="article-footer">
-            <p class="article-meta">
-                <span class="article-categories">Filed Under: <a href="" rel="category tag">음식</a></span> 
-            </p>
-        </footer>
+        <?php 
+            if(count($categoryList) > 0){
+        ?>
+            <footer class="article-footer">
+                <p class="article-meta">
+                    <span class="article-categories">Filed Under: 
+        <?php 
+                    foreach($categoryList as $index => $categoryData){ 
+                        echo ($index > 0)?", ":"";
+        ?>
+                        <a href="/archives/category/<?php echo $categoryData->CATEGORY_SLUG; ?>" rel="category tag"><?php echo $categoryData->CATEGORY_NAME; ?></a>
+        <?php 
+                    } 
+        ?>
+                    </span> 
+                </p>
+            </footer>
+        <?php 
+            }
+        ?>
     </article>
     <!-- article end -->
 
